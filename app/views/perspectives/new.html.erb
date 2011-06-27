@@ -1,0 +1,129 @@
+<%= form_for(:perspectives, :url => {:action => 'create'}, :html => {:multipart => true}) do |nf| %>   
+
+<% if @perspectives.errors.any? %>
+  <div id="error_explanation" style="margin-left:15px;margin-top:10px;">
+    <h2><%=h pluralize(@perspectives.errors.count, "error") %> 
+        prohibited this new link request from being saved:</h2>
+    <p>There were problems with the following fields:</p>
+    <ul>
+    <% @perspectives.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+<table class=ListComments>
+<tr   >
+<td width="5%"   >&nbsp;</td>
+<td width="20%"   >&nbsp;</td>
+<td width="10%"   >&nbsp;</td>
+<td width="10%"   >&nbsp;</td>
+<td width="15%"   >&nbsp;</td>
+<td width="5%"   >&nbsp;</td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp;</td>
+<td colspan=3  class=PetitionTitle >Share Your Perspective</td>
+<td width="15%"   >&nbsp; </td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+
+
+<tr   >
+<td width="5%"   >&nbsp; </td>
+<td colspan=3   >* All fields are required</td>
+<td width="15%"   > &nbsp;</td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+<tr   >
+<td width="5%"   > </td>
+<td width="20%"   ></td>
+<td width="10%"   > </td>
+<td width="10%"   ></td>
+<td width="15%"   > </td>
+<td width="5%"   > </td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp; </td>
+<td colspan=3  class=labelred >(x) indicates maximum characters.</td>
+<td width="15%"   >&nbsp; </td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp; </td>
+<td width="20%"   ></td>
+<td width="10%"   > </td>
+<td width="10%"   ></td>
+<td width="15%"   > </td>
+<td width="5%"   > </td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp;</td>
+<td colspan=2  class=label1  >Your Alias (6..16):</td>
+<td width="10%"   ><%=h nf.text_field(:alias, :size=> 16) %></td>
+<td width="15%"   > &nbsp;</td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+<tr   >
+<td width="5%"   > </td>
+<td colspan=2  class=label1 >Your email (50):</td>
+<td colspan=2   ><%=h nf.text_field(:email, :size => 50) %></td>
+<td width="5%"   > </td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp; </td>
+<td colspan=2  class=label1 valign="top" >Your comments:</td>
+<td colspan=2 rowspan=3><%=h nf.text_area(:comments, :rows=> 6, :cols=> 30, :size => 255) %></td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp; </td>
+<td colspan=2 class=label1  valign="top" >(255, includes spaces)</td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp; </td>
+<td width="20%"   >&nbsp;</td>
+<td width="10%"   >&nbsp;</td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+<tr   >
+<td width="5%"   >&nbsp; </td>
+<td width="20%"   >&nbsp;</td>
+<td width="10%"   >&nbsp;</td>
+<td width="5%"   >&nbsp; </td>
+</tr>
+
+
+<tr   >
+<td width="5%">&nbsp; </td>
+<td colspan=2>&nbsp;&nbsp;<%= submit_tag "Offer Perspective",{:class=>"button_style"} -%></td>
+<td colspan=2><%= link_to "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, {:class=>"button_style", :method=>'get'} -%></td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr   >
+<td width="5%" >&nbsp; </td>
+<td colspan=4><%=h nf.hidden_field :created_at, :value => Time.now %> 
+<%=h nf.hidden_field :machine_ip, :value => request.remote_ip %> 
+</td>
+<td width="5%"   > &nbsp;</td>
+</tr>
+
+</table>
+
+<% end %>

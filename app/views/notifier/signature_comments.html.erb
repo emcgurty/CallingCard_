@@ -1,0 +1,115 @@
+<form>
+<table width="55%">
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td colspan=3>Thank you for offering the following comment on <%= APP_WWW %>.</td>
+<td width="5%">&nbsp;</td>
+
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">Full Name/Alias:&nbsp;</td>
+<td colspan=2">
+ <% strMI = @mi %>
+ <% strMI = strMI.to_s %>
+	<% if @first_name.nil? && @last_name.nil? %>
+          <% fullName = @alias %>
+	
+       <% else %>
+           <% if strMI.nil? %>
+           <% fullName = @first_name + " " + @last_name %>
+   		<% else %>
+	     <% fullName = @first_name + " " + @mi + " " + @last_name %>
+	     <% end %>
+       <% end %>
+<%=h fullName %></td>
+
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">Comments:&nbsp;</td>
+<td colspan=2 rowspan=3 valign="top">
+
+ <% if @comments.nil? %>
+    Not Provided
+ <% else %>
+    <%=h @comments %>	
+  <% end %>
+</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td colspan=3 rowspan=2>Within a few business days you will receive notice of acceptance.  Otherwise, please disregard this email if you have received it in error.</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+</table>
+</form>
+
+

@@ -1,0 +1,13 @@
+  <%=
+    menu_bar do |main|
+      main.menu :home
+      main.menu :signatures
+      main.menu :perspectives
+      main.menu :author do |about_us|
+        author.menu :overview, 'Overview', about_us_url
+        author.menu :who_we_are
+        author.menu :contact, 'Contact Us'
+      end
+      main.menu :search, 'Search!', 'http://www.google.com', :class => 'ir'
+    end
+  %>

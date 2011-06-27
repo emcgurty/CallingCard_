@@ -1,0 +1,193 @@
+<%= form_for @users, :url => {:action => 'update', :function=>'updateuserinformation'}, :html => {:method => :post} do |uf| %>   
+
+<% if @users.blank? %>
+  asdasdasdas
+<% else %>
+
+<table class=ListComments width="100%">
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td colspan=3  class=PetitionTitle >Update Registered User</td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred></td>
+<td width="15%">  </td>
+<td width="15%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+</tr>
+<tr  >
+<td width="5%"></td>
+<td colspan=3 class=labelred>* The red fields are required. (x) indicates maximum allowed characters.</td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>user name</td>
+<td colspan=2 class=labelred>&nbsp;</td>
+<td width="10%"></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" ><%=h uf.text_field( 'username') %></td>
+<td colspan=2>&nbsp;</td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="15%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>Password</td>
+<td colspan=2 class=labelred>Re-enter Password</td>
+<td width="10%"></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" ><%=h uf.password_field :password %></td>
+<td colspan=2><%=h uf.password_field :reenterpassword %></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred >First Name (15)&nbsp;</td>
+<td width="15%" class=labelg >MI (1)&nbsp;</td>
+<td width="15%"class=labelred >Last Name (15)&nbsp;</td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"> </td>
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelg ><%=h uf.text_field :first_name, :size=>15 %> </td>
+<td width="15%" class=labelg ><%=h uf.text_field :MI, :size=>1 %> </td>
+<td width="15%"class=labelg ><%=h uf.text_field :last_name, :size=>15 %> </td>
+<td width="10%"> </td>
+<td width="10%"></td>
+<td width="10%"> </td>
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td colspan=2 class=labelred >email address (50)</td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%"> </td>
+<td colspan=2 class=labelg><%=h uf.text_field :email,:size=>50 %>   </td>
+<td width="15%">  </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%" ></td>
+
+<td width="15%" align=left><%= submit_tag  "Submit Updates" , :class=>"button_style" %></td>
+<td colspan=2 align=left><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, { :class=>"button_style"}%></td>
+<td width="15%">&nbsp; </td>
+<td width="15%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+</table>
+<% end %>
+<% end %>

@@ -1,0 +1,308 @@
+<%= form_for(:linkrequest, :url => {:action => 'create'}, :html => {:multipart => true}) do |new_form| %>   
+
+<% if !session[:org_name].nil? %>
+<%= session[:org_name] -%>
+<% end %>
+
+<% if @linkrequest.errors.any? %>
+  <div id="error_explanation">
+    <h2><%=h pluralize(@linkrequest.errors.count, "error") %> 
+        prohibited this new link request from being saved:</h2>
+    <p>There were problems with the following fields:</p>
+    <ul>
+    <% @linkrequest.errors.full_messages.each do |msg| %>
+      <li><%=h msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<table class=ListComments >
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td colspan=3  class=PetitionTitle >Offer Your Link</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td colspan=3 class=labelred>* The red fields are required. (x) indicates maximum allowed characters.</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>Organization Name (100)</td>
+<td colspan=2 class=labelred>Organization URL (100)</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr>
+<td width="5%"></td>
+<td width="15%" ><%=h new_form.text_field(:organization_name , :onchange=> {:action => :get_org_name}) %></td>
+<td colspan=2><%=h new_form.text_field('organization_url') %></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="15%"></td>  
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>City (15)</td>
+<td width="15%" class=labelred>State</td>
+<td width="15%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+
+<td width="5%"></td>
+<td width="15%" valign="top"><%=h new_form.text_field :city, :size=>20 %></td>
+<td width="15%">
+<%= select("linkrequest", "state_id", State.all.collect {|p| [ p.state, p.id ] }) %></td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>Country</td>
+<td width="15%" class=labelred>Zip (12)</td>
+<td width="15%" class=labelred></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+
+<td width="5%"></td>
+<td width="15%"><%= select("linkrequest", "country_id", Country.all.collect {|p| [ p.country, p.id ] }) %></td>
+<td width="15%" valign="top"><%=h new_form.text_field :zip_code, :size=> 12 %></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+
+
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>Mission Statement (255, includes spaces)</td>
+<td width="15%" class=labelg>Organization Image ( <= 100pxX100px )</td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" rowspan=2 valign=top class=labelg  ><%=h new_form.text_area('mission',:rows => 5, :cols => 30, :size=>255) %></td>
+<td width="15%" rowspan=2 valign=top ><%=h new_form.file_field("uploaded_picture") %></td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td colspan=4 >
+
+<table class=ListComments >
+<tr>
+<td width="25%" class=labelred  >First Name (15)</td>
+<td width="1%" class=labelg  >&nbsp;</td>
+<td width="10%" class=labelg >MI</td>
+<td width="1%" class=labelg >&nbsp;</td>
+<td width="25%" class=labelred >Last Name (15)</td>
+<td width="38%">&nbsp;</td>
+</tr>
+</table>
+</td>
+
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp; </td>
+<td width="10%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td colspan=4 >
+<table class=ListComments>
+<tr>
+<td width="25%" class=labelg ><%=h new_form.text_field :first_name, :size=>15 %> </td>
+<td width="1%" class=labelg >&nbsp;</td>
+<td width="10%" class=labelg ><%=h new_form.text_field :mi, :size=>1 %> </td>
+<td width="1%" class=labelg >&nbsp;</td>
+<td width="25%" class=labelg ><%=h new_form.text_field('last_name', :size=>15) %> </td>
+<td width="38%">&nbsp;</td>
+
+</tr>
+</table >
+</td>
+
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp; </td>
+<td width="10%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td colspan=2 class=labelred >email address (50)</td>
+<td width="15%"> </td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+
+</tr>
+
+
+<tr  >
+<td width="5%"> </td>
+<td colspan=2 class=labelg><%=h new_form.text_field('email',:size=>50) %>   </td>
+<td width="15%"> </td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+<td width="5%" ></td>
+<td width="15%" align=left><%= submit_tag  "Submit for Approval", { :class=>"button_style"} %></td>
+<td width="15%" align=left><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, { :class=>"button_style"}%></td>
+<td width="15%"> </td>
+<td width="10%" ><%=h new_form.hidden_field('remote_ip' , :value=>request.remote_ip)  %> </td>
+<td width="10%"></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+</table>
+
+<% end %>

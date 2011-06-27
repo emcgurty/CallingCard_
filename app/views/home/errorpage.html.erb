@@ -1,0 +1,62 @@
+  <h2 >An application exception was encountered</h2>
+
+  <% if flash[:notice] %>
+  
+  
+
+
+
+<table class=ListCommemts>
+
+<tr>
+
+<td width="5%"></td>
+<td width="60%" class=PetitionTitle>This Petition site encountered the following error:</td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%" rowspan=2 class=titlegreen><%= flash[:notice] %></td>
+<td width="30%"></td>
+</tr>
+
+
+<tr>
+<td width="5%"></td>
+<td width="30%"></td>
+</tr>
+
+
+<tr>
+<td width="5%"></td>
+<td width="60%" rowspan=2 >If you would like, please report this error to me, emcgurty2 (at) gmail.com. Otherwise I apologize for any inconvenience.</td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%"></td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%" ><%= link_to "Return to Petition Signatures", { :controller=>'signatures', :action=>'show'} , :class=>"button_style" %></td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%"></td>
+<td width="30%"></td>
+</tr>
+
+</table>
+
+  <% end %>

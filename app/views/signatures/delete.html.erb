@@ -1,0 +1,259 @@
+<% @signatures.each do |item| %> 
+
+<table class=ListComments width="80%" >
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr >
+<td width="5%" >&nbsp;</td>
+<td class=PetitionTitle colspan=2>Sign the Petition  </td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=labelgreen colspan=4>Green fields are required. (x) indicates maximum characters.  </td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="5%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=labelgreen colspan=2>First Name (15)</td>
+<td class=label1 width="10%"> Middle Initial (1)</td>
+<td class=labelgreen colspan=2>Last Name (15)</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=2><%= item.first_name %></td>
+<td width="10%"><%= item.mi %></td>
+<td colspan=2><%= item.last_name %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=labelgreen colspan=2>Alias</td>
+<td colspan=2 class=labelgreen>Year of Birth</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr   >
+<td width="5%" >&nbsp;</td>
+<td colspan=2><%= item.alias %></td>
+<td colspan=2 ><%= select("signatures", "YOB", 1910.upto(2000).to_a ) %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=label1 width="10%">email address: (50)</td>
+<td colspan=3><%= item.text_field(:email, :size=> 50) %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td  class=labelgreen colspan=2>Address Line 1 (20)</td>
+<td class=label1 colspan=2>Address Line 2 (20)</td>
+<td class=labelgreen colspan=2>City (15)</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr >
+<td width="5%" >&nbsp;</td>
+<td colspan=2><%= item.text_field(:address1, :size => 20) %></td>
+<td colspan=2><%= item.text_field(:address2 , :size => 20) %></td>
+<td colspan=2><%= item.text_field(:city, :size => 15) %></td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=2 class=labelgreen>State</td>
+<td colspan=2 class=labelgreen>Country</td>
+<td width="10%" class=label1 >Postal Code</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr   >
+<td width="5%" >&nbsp;</td>
+<td colspan=2 align=left><%= select("signatures", "state_id", State.all.collect {|st| [ st.state, st.id ] } ) %></td>
+
+<td colspan=2 aligh=left><%= select("signatures", "country_id", Country.all.collect {|st| [ st.country, st.id ] } ) %></td>
+<td width="10%" ><%= item.text_field(:postal_code, :size => 12) %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" class=label1 valign=top >Comments (255)</td>
+<td colspan=4 rowspan=3><%= item.text_area(:comments,:rows=>5, :cols=>20 ) %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="5%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=5 align=right class=labelgreen><%= item.check_box('signature_agreement') %>&nbsp;
+I attest that I am a responsible person and that I am offering my signature in earnest.</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" ></td>
+</tr>
+
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=2 align=center><%= submit_tag "Delete this signature" , {:style=>BUTTON_STYLE } %></td>
+<td width="10%" align=center><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show'}, 
+              { :style=>"font-family: arial;  font-size: 14px;  font-weight: normal;  
+           background-color:white;  text-decoration: none;  color: blue; border-color:green;"}%></td>
+<td width="10%" align=center></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=4 align=center valign=center class=PetitionTitle2>Click one of the above options once, please.</td>
+<td width="10%" >&nbsp;</td>
+
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="10%"></td>
+<td width="10%">
+</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+</table>
+
+
+<% end %>

@@ -1,0 +1,231 @@
+<% if flash[:notice] %>
+  <%= flash[:notice] -%>
+<% end %>
+
+
+
+<table class=ListComments >
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td colspan=3  class=PetitionTitle >Confirmation for Your Link Request</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td colspan=2  class=label1 >Organization Name</td>
+<td colspan=2 class=label1>Organization URL</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td colspan=2><%=h @linkrequest.organization_name %></td>
+<% myStr = h(@linkrequest.organization_url).to_s %>
+<% myStr = myStr.gsub('.', ' (dot) ' )  %>
+<td colspan=2><%= myStr %></td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="20%" class=label1>City</td>
+<td width="20%" class=label1>State</td>
+<td width="20%" class=label1>Country</td>
+<td width="20%" class=label1>Zip</td>
+<td width="15%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="20%"><%=h @linkrequest.city %></td>
+<td width="20%"><%=h State.find(@linkrequest[:state_id]).abbrev %>&nbsp;</td>
+<td width="20%"><%=h Country.find(@linkrequest[:country_id]).abbrev %>&nbsp;</td>
+<td width="20%"><%=h @linkrequest.zip_code %> </td>
+<td width="15%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td colspan=2 class=label1>Mission Statement</td>
+<td colspan=2 class=label1 >Organization Image</td>
+<td width="15%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td colspan=2 rowspan=2 valign=top class=labelr1  ><%=h @linkrequest.mission %></td>
+<td colspan=2 rowspan=2 valign=top class=labelblue>
+
+<%  myStr = 'N/A' %>
+<% if @linkrequest.image_file_name.nil? %>
+File name: <%= myStr%><br>Content type: <%= myStr %>
+<% else %>
+File name: <%=h @linkrequest.image_file_name %><br>Content type: <%=h @linkrequest.image_content_type %>
+<div class=picture_content >
+<% if @linkrequest.img_height > 100 || @linkrequest.img_width > 100 %>
+The image you have offered is too large.
+<% else %>
+<img src=<%= url_for(:controller => 'linkrequests', :action => 'displayPicture', :id => @linkrequest.id ) %> />
+<% end %>
+</div>
+<% end %>
+
+</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td colspan=2 class=label1 >Requestor's Name</td>
+<td colspan=2 class=label1>Provided email address</td>
+<td width="15%">&nbsp;</td>
+
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+      <% strMI = @linkrequest.mi %>
+	<% if strMI.nil? %>
+	<% fullName = @linkrequest.first_name + " " + @linkrequest.last_name %>
+	<% else %>
+	<% fullName = @linkrequest.first_name + " " + @linkrequest.mi + " " + @linkrequest.last_name %>
+	<% end %>
+<td colspan=2  ><%=h fullName %></td>
+<% myStr = h(@linkrequest.email).to_s %>
+<% myStr = myStr.gsub('.', ' (dot) ' )  %>
+<td colspan=2 ><%=h myStr %></td>
+<td width="15%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td colspan=2><%= link_to_function 'Please cancel my request', 'verify_delete()' , {:class=>"button_style"} %></td>
+<td colspan=2><%= link_to 'Please email request', {:controller=>'linkrequests', :action => 'sendmail', :id=>@linkrequest.id }, {:class=>"button_style"}  %></td>  
+<td width="15%" >&nbsp;</td>
+
+</tr>
+
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+</table>
+
+<div id=verify_delete class=verify_d >
+<table class=ListComments >
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td colspan=4 class=PetitionTitle >Are you sure you want to cancel this request?</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="20%" valign=top>
+<%= button_to 'Yes', {:controller=>'linkrequests', :action => 'destroy', :id => @linkrequest.id}, {:class=>"button_style",  :method=>'delete' }%>
+</td>
+<td width="20%" valign=top>
+<input type='button' value='No' onClick='verify_delete();' class="button_style"  />
+</td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+
+</table>
+
+</div>
+

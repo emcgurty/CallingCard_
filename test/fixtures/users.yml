@@ -1,0 +1,27 @@
+<% myd = DateTime.now %>
+two:
+      username: liz1po
+      password: qaz115632
+      email: emchiuty
+      first_name: liz
+      MI: w
+      last_name: asdas
+      role: nonadmin
+      created_at: <%= myd %>
+      placed_at: <%= myd %>
+      machine_ip: asdf
+      approved: 1 
+
+one:
+      username: liz2oi
+      password: qaz987456
+      email: emchiuty
+      first_name: liz
+      MI: q
+      last_name: asdas
+      role: nonadmin
+      created_at: <%= myd %>
+      placed_at: <%= myd %>
+      machine_ip: asdf
+      approved: 1  
+

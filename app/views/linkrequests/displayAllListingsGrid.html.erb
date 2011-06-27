@@ -1,0 +1,39 @@
+<form>
+<table class=ListComments >
+<tr >
+
+ <% j = 0 %> 
+ 
+
+<% @linkrequest.each do |item| %>
+ 	           
+           
+              <td width="20%" align=center valign=center>
+              <div width="20%" id=GridCell>
+              <table width="20%"  >
+		     <tr>		
+		<td align=center valign=center>
+<% myStr = h(item.organization_url).to_s %>
+<% myStr = myStr.gsub('.', '(dot)' )  %>
+	<img src=<%=h url_for(:controller => 'Linkrequests', :action => 'displayPicture', :id => item.id ) %>
+                   width="30%" height="30%" alt=<%=h item.organization_name %> /></td>
+</tr>
+<tr>
+<td align=center valign=top style="font-size:x-small;"><%=h myStr %></td>
+</tr>
+</table>
+              </div>
+              </td>
+		  <% j += 1 %> 
+              <% if (j % 3) == 0 %>
+			</tr><tr>
+              <% end %> 
+   	 	     
+
+<% end %>
+
+</tr>
+
+</table>
+
+</form>

@@ -1,0 +1,125 @@
+<form>
+<table class="" width="100%" >
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td colspan=2 class=PetitionTitle>Delete Perspective</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+
+
+<tr  >
+<td width="2%"   >&nbsp;</td>
+<td width="10%" class=label1 >Alias:</td>
+<td width="15%" class=label1 >Email:</td>
+<td width="35%"  ></td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="10%"  ><%=h @perspectives.alias %></td>
+<td width="15%"  ><%=h @perspectives.email %></td>
+<td width="35%"  ></td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="10%"  ></td>
+<td width="15%"  ></td>
+<td width="35%"  ></td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="10%" class=label1  >Comments:</td>
+<td width="15%"  ></td>
+<td width="35%"  ></td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="10%" colspan=3 rowspan=4 valign=top><%=h @perspectives.comments %></td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="10%"  ></td>
+<td width="15%"  ></td>
+<td width="35%"  ></td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td colspan=2 >
+<%= link_to "Delete", {:controller=>'perspectives', :action=>'destroy', 
+:id=>@perspectives.id}, 
+{:style=>"font-family: arial;  font-size: 14px;font-weight: normal;  
+background-color:white;  text-decoration: none;  color: blue; border-color:green;" ,  :method=>'delete' } %>
+</td>
+<td colspan=2  ><%= link_to "email For Approval", {:controller=>'perspectives', :action=>'accept', :id=>@perspectives.id } , {:method=>'post',:style=>BUTTON_STYLE } %></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td colspan=3 class=PetitionTitle valign=center align=center >&nbsp;&nbsp;&nbsp;Please click the above options only once.</td>
+<td width="20%"  ></td>
+</tr>
+
+<tr>
+<td width="2%"   >&nbsp;</td>
+<td width="10%"  >&nbsp;</td>
+<td width="15%"  ></td>
+<td width="35%"  ></td>
+<td width="20%"  ></td>
+</tr>
+</table>
+
+</form>

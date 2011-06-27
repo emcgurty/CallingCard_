@@ -1,0 +1,68 @@
+
+<html>
+<head>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title>Ruby on Rails Layout #1</title>
+<!-- <link rel="stylesheet" href="all.css" type="text/css" /> -->
+<%= javascript_include_tag :all %>
+<%= stylesheet_link_tag :all, :cache => false %> 
+<!-- <link rel="stylesheet" href="http://www.w3.org/Style/map.css"> -->
+
+
+
+</head>
+<body>
+
+
+<% content_for :header do %>
+<%= render :partial => 'menus/header' %> 
+<% end %>
+
+<% content_for :footer do %>
+<% render :partial => 'menus/footer'  %>
+<% end %>
+
+
+<% content_for :center do %>
+<%=h yield -%>
+<% end %>
+
+
+<div class=last> 
+<div class=outer> 
+<div class=inner>
+<%= yield :header %> 
+</div>
+</div> 
+</div> 
+
+<div class=surround >
+
+<div class=left_side_content id=center_body>
+<%=h render :partial => 'linkrequests/listOthers'  %>
+</div>
+
+
+<div class=my_content id=center_body>
+<%=h yield  :center -%>
+</div>
+
+<div class=right_side_content id=center_body>
+<%=h render :partial => 'linkrequests/videos'  %>
+</div>
+
+</div>
+
+
+<div class=last style="clear:both;margin-top=5%;margin-bottom=1%"> 
+<div class=outer> 
+<div class=inner>
+<%= yield :footer %> 
+</div>
+</div> 
+</div> 
+
+<%= debug(params) if Rails.env.development? %> 
+</body>
+</html>

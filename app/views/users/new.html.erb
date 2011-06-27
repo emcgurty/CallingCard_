@@ -1,0 +1,221 @@
+<%= form_for(:users, :url => {:action => 'create'}, :html => {:multipart => true}) do |new_form| %>   
+
+<% if @users.errors.any? %>
+  <div id="error_explanation">
+    <h2><%=h pluralize(@users.errors.count, "error") %> 
+        prohibited this new link request from being saved:</h2>
+    <p>There were problems with the following fields:</p>
+    <ul>
+    <% @users.errors.full_messages.each do |msg| %>
+      <li><%=h msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<table class=ListComments width="100%">
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td colspan=3  class=PetitionTitle >User Registration</td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred></td>
+<td width="15%">  </td>
+<td width="15%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+</tr>
+<tr  >
+<td width="5%"></td>
+<td colspan=3 class=labelred>* The red fields are required. (x) indicates maximum allowed characters.</td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>User name: (6...16)</td>
+<td colspan=2 class=labelred>&nbsp;</td>
+<td width="10%"></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" ><%=h new_form.text_field('username' ) %></td>
+<td colspan=2>&nbsp;</td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="15%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>Password: (6...16)</td>
+<td colspan=2 class=labelred>Re-enter password:</td>
+<td width="10%"></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" ><%=h new_form.password_field('password' ) %></td>
+<td colspan=2><%=h new_form.password_field('password_confirmation') %></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td colspan=4 >
+<table class=ListComments>
+<tr>
+<td width="25%" class=labelred >First Name (15):</td>
+<td width="1%">&nbsp;</td>
+<td width="10%" class=labelg >MI (1):</td>
+<td width="1%">&nbsp;</td>
+<td width="18%"class=labelred >Last Name (15):</td>
+<td width="43%">&nbsp;</td>
+</tr>
+</table>
+</td>
+<td width="10%"></td>
+<td width="10%"> </td>
+<td width="10%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td colspan=4 >
+<table  class=ListComments>
+<tr>
+<td width="25%" class=labelg ><%=h new_form.text_field :first_name, :size=>15 %> </td>
+<td width="1%">&nbsp;</td>
+<td width="10%" class=labelg ><%=h new_form.text_field :MI, :size=>1 %> </td>
+<td width="1%">&nbsp;</td>
+<td width="18%"class=labelg ><%=h new_form.text_field('last_name', :size=>15) %> </td>
+<td width="43%">&nbsp;</td>
+
+</tr>
+</table>
+</td>
+<td width="10%"></td>
+<td width="10%"> </td>
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td colspan=2 class=labelred >email address (50):</td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%"> </td>
+<td colspan=2 class=labelg><%=h new_form.text_field('email',:size=>50) %>   </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%" ></td>
+
+<td width="15%" align=left><%= submit_tag  "Submit", { :class=>"button_style"} %></td>
+<td colspan=2 align=left><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'},               { :class=>"button_style"}%></td>
+<td width="15%">&nbsp; </td>
+<td width="15%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+</table>
+
+<% end %>

@@ -1,0 +1,56 @@
+
+
+<% @linkrequest = Linkrequest.order("placed_at desc").find(:all, :limit => 4, :readonly=>true) %>
+<% if @linkrequest.empty? %>
+<table class=ListComments  >
+<tr>
+<th>*</th>
+<td class=PageTitle2>Offered Links</th>
+</tr> 
+</table>
+<% else %>
+<% myHashSize = Linkrequest.order("placed_at desc").find(:all,  :conditions => "approved = 1").size %>
+<% myRowCount = 0 %>
+
+<table class=ListComments  >
+
+<tr>
+<th>*</th>
+<td class=PageTitle2>Offered Links</th>
+</tr> 
+
+
+<% @linkrequest.each do |rw| %>   
+<% myRowCount = myRowCount + 1 %>
+<tr>
+<td>&nbsp;</td>
+<% myStr = h(rw.organization_url).to_s %>
+<% myStr = myStr.gsub('.', '(dot)' )  %>
+<td class=smallfont><%=h myStr %></td>
+</tr> 
+
+
+<tr>
+<td>&nbsp;</td>
+<td><img src=<%= url_for(:controller => 'linkrequests', :action => 'displayPicture', :id => rw.id) %> />
+</td>
+</tr>
+
+
+<% end %>
+
+<% if myHashSize > 4 %>
+<tr class=niceborder>
+<td>&nbsp;</td>
+<td><%= button_to "More...", {:controller=>'linkrequests' , :action=>'displayAllListingsGrid'}, { :class=>"button_style" } %></td>
+</tr> 
+
+<%end %>
+
+</table>
+<% end %>
+
+
+
+
+

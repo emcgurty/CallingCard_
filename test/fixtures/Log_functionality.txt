@@ -1,0 +1,699 @@
+using System;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.IO;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using MI = Microsoft.Office.Interop.Excel;
+using Microsoft.Office;
+
+
+
+public partial class _Default : System.Web.UI.Page
+{
+
+    protected void Page_Init(object sender, EventArgs e)
+    {
+
+        if (!(Page.IsPostBack))   // Not postBack
+        {
+        if (GlobalClass.OptionSelected == 1)
+        {
+            this.Master.Title_Label.Text = ConfigurationManager.AppSettings["OptionOne"].ToString();
+            this.Master.Title_Label.Style["Color"] = "Purple"; 
+        }
+        if (GlobalClass.OptionSelected == 2)
+        {
+            this.Master.Title_Label.Text = ConfigurationManager.AppSettings["OptionTwo"].ToString();
+            this.Master.Title_Label.Style["Color"] = "Orange"; 
+        }
+
+        if (GlobalClass.OptionSelected == 3)
+        {
+            this.Master.Title_Label.Text = ConfigurationManager.AppSettings["OptionThree"].ToString();
+            this.Master.Title_Label.Style["Color"] = "Fushia"; 
+        }
+
+        if (GlobalClass.IsEditting)
+        {
+            Table_Values.InsertRows(1);  //emm 0221/0225
+            GlobalClass.IsEditting = false;
+            GlobalClass.Master_NumberOfRows = 0;
+        }
+        this.Master.ExcelInstructions.Visible = false;
+        //this.ExcelFile.Attributes.Add("onChange", "GetValue();");
+
+    }
+    }
+
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+       
+        int Config_Rows_Permitted = 0;
+        bool boolFilename = false;
+        string exc =  Server.HtmlEncode(Request.Form["FileName"] );
+
+        //Response.Redirect("Default.aspx?Option=" + this.lstOptions.SelectedValue);
+        if (!(String.IsNullOrEmpty(Request.QueryString["Option"])))
+        {
+            if (Request.QueryString["Option"] == "0")
+            {
+                this.divManual.Style["display"] = "inline";
+                this.divShowExcelData.Style["display"] = "none";
+                string strTemp =  ConfigurationManager.AppSettings["GSD_Instructions_Manual"].ToString();
+                this.Master.InstructionLabel.Text = strTemp.Replace("*", ConfigurationManager.AppSettings["Max_Number_Of_Rows"].ToString());
+                //Table_Values.InsertRows(1);  //emm 0225, placed in _Init
+               
+
+            }
+            else if (Request.QueryString["Option"] == "1")
+            {
+                this.divManual.Style["display"] = "none";
+                this.divShowExcelData.Style["display"] = "inline";
+                this.Master.InstructionLabel.Text = ConfigurationManager.AppSettings["GSD_Instructions_Import"].ToString();
+                //Table_Values.InsertRows(1);  //emm 0225, placed in _Init
+               
+            }
+            else
+            {
+                // Do Nothing, for the moment
+            }
+
+        }
+        else if (!(String.IsNullOrEmpty(Request.QueryString["function"])))
+        {
+            string strReq = Request.QueryString["function"];
+
+            if (!(String.IsNullOrEmpty(strReq)))
+            {
+                if (strReq == "RecalcRows")
+                {
+                    AcceptRowChanges();
+                } 
+                else if (strReq == "ClearAll")
+                {
+                    if (!(Table_Values.DeleteRowValues()))
+                    {
+                        Response.Redirect("ErrorMessage.aspx");
+                    }
+                    GSDView.DataBind();
+                    this.lblRowError.Text = "FINISHED clearing rows.";
+                    this.divHideExport.Style["display"] = "none";
+                }
+
+
+                else if (strReq == "BuildRows")
+                {
+                    int test_Master_NumberOfRows = 0;
+                    try
+                    {
+                        test_Master_NumberOfRows = GlobalClass.Master_NumberOfRows;
+                    }
+                    catch
+                    {
+                        this.lblRowError.Text = "Please enter an integer row count greater than 0.";
+                        return;
+
+                    }
+
+                    if (!(GlobalClass.Master_NumberOfRows > 0))
+                    {
+                        this.lblRowError.Text = "Please enter a row count greater than 0.";
+                        return;
+                    }
+
+                    if (!(Table_Values.DeleteRowValues()))
+                    {
+
+                        Response.Redirect("ErrorMessage.aspx");
+                    }
+
+                    // Compare number of row user wnats with the number permitted
+                    int intNumOfRows = Convert.ToInt16(GlobalClass.Master_NumberOfRows);
+
+                    try
+                    {
+                        Config_Rows_Permitted = Convert.ToInt16(ConfigurationManager.AppSettings["Max_Number_Of_Rows"].ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        GlobalClass.ErrorMessage = "Error in accessing Configuration Manager with error message: " + ex.Message;
+                        Response.Redirect("ErrorMessage.aspx");
+                    }
+
+                    if ((intNumOfRows < Config_Rows_Permitted) || (intNumOfRows > 0))
+                    {
+                        if (!(Table_Values.InsertRows(intNumOfRows)))
+                        {
+
+                            Response.Redirect("ErrorMessage.aspx");
+                        }
+                    }
+
+                    this.GSDView.DataBind();  // emm 0225
+                    this.lblRowError.Text = "FINISHED building " + intNumOfRows + " rows.";
+                    this.divHideExport.Style["display"] = "inline";
+                }
+            }
+            else  // no query string, just the load of the application
+            {
+                // Table_Values.InsertRows(1);  emm 0221, placed in _Init
+            }
+
+        } //closes query string test
+        else
+        {
+            // Table_Values.InsertRows(1);  //emm 0225, placed in _Init
+        }
+
+        if (boolFilename)
+        {
+            this.lblRowError.Text = "Excel download process complete.";
+        }
+
+    } // closes function   
+    
+
+
+    protected bool UploadFileData(string excelFileName)
+    {
+
+        try
+        {
+            if (File.Exists(@excelFileName))
+            {
+            }
+        }
+        catch (SystemException sec)
+        {
+            GlobalClass.ErrorMessage = "File not found: " + sec.InnerException + " " + sec.Message + " " + sec.StackTrace;
+            return false;
+        }
+        
+        if (File.Exists(@excelFileName))
+                {
+                    //  Clear the gridview
+                    MI.Application excelApp = new MI.ApplicationClass();
+                    excelApp.Visible = false;
+                    MI.Workbook workbook = excelApp.Workbooks.Open(@excelFileName,0,
+                        true, 5, "", "", true, Type.Missing, Type.Missing,
+                        Type.Missing, true, 0, true, false,Type.Missing);
+                    MI.Worksheet worksheet = (MI.Worksheet)workbook.Worksheets.get_Item("Samples");
+                    MI.Range dataRange = worksheet.get_Range("UpperLeftCorner", "LowerRightCorner");
+                    System.Array SystemArray = (System.Array)dataRange.Cells.Value2;
+                    
+                    // Now that we have the data, close Excel
+                    workbook.Close(false, @excelFileName, Type.Missing);
+                    try
+                    {
+                        excelApp.Quit();
+                    }
+                    catch
+                    {
+                        excelApp.ActiveWindow.Close(false, @excelFileName, Type.Missing);
+                    }
+
+
+                    string[] arrayS = this.ConvertToStringArray(SystemArray);
+                    // Now place in 2-dimensional array for adding new gridview rows
+                    // 100 rows, 6 columns
+                    string[,] gridArray = new string[100,6];
+
+                    int q = 0;
+                    int y = 0;
+                    int z = 0;
+                    for (y = 0; y < 100; y++)
+                    {
+
+                        for (z = 0; z < 6; z++)
+                        {
+                            gridArray[y, z] = arrayS[q++];
+                        }
+                    }
+                    
+                    // call static bool InsertNewExcelRows(int RowCounter, string col_identifier, double d1,double d2,double d3,double d4,double d5)
+                    int counter = 0;
+                    string strIdentifier = String.Empty;
+                    string g1 = String.Empty;
+                    string g2 = String.Empty;
+                    string g3 = String.Empty;
+                    string g4 = String.Empty;
+                    string g5 = String.Empty;
+                    bool SampleNotDouble = false;     
+                   
+                    for (y = 0; y < 100; y++)
+                    {
+                        
+
+                        if (String.IsNullOrEmpty(gridArray[y, 0]))
+                        {
+                            strIdentifier = "N/A";
+                        }
+                        else
+                        {
+                            strIdentifier = gridArray[y, 0].ToString();
+                        }
+
+                        //g1
+                        try 
+                        {
+                            Convert.ToDouble(gridArray[y, 1]);
+                            SampleNotDouble = false;
+                        }
+                            catch
+                        {
+                             SampleNotDouble = true;
+                        }
+
+                        if ((String.IsNullOrEmpty(gridArray[y, 1])) || (SampleNotDouble))
+                        {
+                            g1 = "1.00";
+                        }
+                        else
+                        {
+                            g1 =  gridArray[y, 1].ToString();
+                        }
+
+                        //g2
+                        try
+                        {
+                            Convert.ToDouble(gridArray[y, 2]);
+                            SampleNotDouble = false;
+                        }
+                        catch
+                        {
+                            SampleNotDouble = true;
+                        }
+                        
+                        if ((String.IsNullOrEmpty(gridArray[y, 2])) || (SampleNotDouble))
+                        {
+                            g2 = "1.00";
+                        }
+                        else
+                        {
+                            g2 = gridArray[y, 2].ToString();
+                        }
+
+
+                        //g3
+                        try
+                        {
+                            Convert.ToDouble(gridArray[y, 3]);
+                            SampleNotDouble = false;
+                        }
+                        catch
+                        {
+                            SampleNotDouble = true;
+                        }
+
+                        if ((String.IsNullOrEmpty(gridArray[y, 3])) || (SampleNotDouble))
+                        {
+                            g3 = "1.00";
+                        }
+                        else
+                        {
+                            g3 = gridArray[y, 3].ToString();
+                        }
+
+
+                        //g4
+                        try
+                        {
+                            Convert.ToDouble(gridArray[y, 4]);
+                            SampleNotDouble = false;
+                        }
+                        catch
+                        {
+                            SampleNotDouble = true;
+                        } 
+                        
+                        if ((String.IsNullOrEmpty(gridArray[y, 4])) || (SampleNotDouble))
+                        {
+                            g4 = "1.00";
+                        }
+                        else
+                        {
+                            g4 = gridArray[y, 4].ToString();
+                        }
+
+                        // g5
+                        try
+                        {
+                            Convert.ToDouble(gridArray[y, 5]);
+                            SampleNotDouble = false;
+                        }
+                        catch
+                        {
+                            SampleNotDouble = true;
+                        }
+                        if ((String.IsNullOrEmpty(gridArray[y, 5])) || (SampleNotDouble)) 
+                        {
+                            g5 = "1.00";
+                        }
+                        else
+                        {
+                            g5 = gridArray[y, 5].ToString();
+                        }
+
+                        
+                        // Inserts rows into the <LIST>
+                        Table_Values.InsertRows(counter,
+                         strIdentifier,
+                         Convert.ToDouble(g1),
+                         Convert.ToDouble(g2),
+                         Convert.ToDouble(g3),
+                         Convert.ToDouble(g4),
+                         Convert.ToDouble(g5));
+
+
+
+                        //Does the GSD/MEAN calculation in the <LIST>
+                        Table_Values.UpdateRowValues(counter,
+                         strIdentifier,
+                         Convert.ToDouble(g1),
+                         Convert.ToDouble(g2),
+                         Convert.ToDouble(g3),
+                         Convert.ToDouble(g4),
+                         Convert.ToDouble(g5));
+
+                        counter++;
+                    }
+
+                    GSDView.DataBind();
+                    GlobalClass.Master_NumberOfRows = Table_Values.GetRowCount();
+                    this.divHideExport.Style["display"] = "inline";
+                    return true;
+
+                }
+                else
+                {
+                    GlobalClass.ErrorMessage = "File not found: " + excelFileName;
+                    //this.Focus();
+                    return false;                   
+                 
+                }
+                
+            }
+
+    
+    private string[] ConvertToStringArray(System.Array values)
+    {
+        string[] newArray = new string[values.Length];
+
+        int index = 0;
+        for (int i = values.GetLowerBound(0);
+              i <= values.GetUpperBound(0); i++)
+        {
+            for (int j = values.GetLowerBound(1);
+                      j <= values.GetUpperBound(1); j++)
+            {
+                if (values.GetValue(i, j) == null)
+                {
+                    newArray[index] = "";
+                }
+                else
+                {
+                    newArray[index] = (string)values.GetValue(i, j).ToString();
+                }
+                index++;
+            }
+        }
+        return newArray;
+    }
+    
+    
+    protected bool UpdatingRow(int currentRowIndex)
+    {
+
+       
+        //double col440, double col500, double col560, double col620, double col700, double colGSD, double colMean, int colrowID
+        double d440 = 0.0;
+        double d500 = 0.0;
+        double d560 = 0.0;
+        double d620 = 0.0;
+        double d700 = 0.0;
+        string strIdentifier = string.Empty;
+        
+        bool results = true;
+        try
+        {
+            GridViewRow selectedRow = GSDView.Rows[currentRowIndex];
+            //lblIdentifier
+            System.Web.UI.WebControls.TextBox tCell = (System.Web.UI.WebControls.TextBox)selectedRow.FindControl("lblIdentifier");
+            strIdentifier = tCell.Text;
+            
+            tCell = (System.Web.UI.WebControls.TextBox)selectedRow.FindControl("lbl440");
+            d440 = Convert.ToDouble(tCell.Text);
+
+            tCell = (System.Web.UI.WebControls.TextBox)selectedRow.FindControl("lbl500");
+            d500 = Convert.ToDouble(tCell.Text);
+
+            tCell = (System.Web.UI.WebControls.TextBox)selectedRow.FindControl("lbl560");
+            d560 = Convert.ToDouble(tCell.Text);
+
+            tCell = (System.Web.UI.WebControls.TextBox)selectedRow.FindControl("lbl620");
+            d620 = Convert.ToDouble(tCell.Text);
+
+            tCell = (System.Web.UI.WebControls.TextBox)selectedRow.FindControl("lbl700");
+            d700 = Convert.ToDouble(tCell.Text);
+        }
+        catch(Exception e)
+        {
+            GlobalClass.ErrorMessage = "Error in Default.aspx.cs (UpdatingRow(int): Error Message:" + e.Message; 
+            results = false;
+        }
+
+
+
+        try
+        {
+            results = Table_Values.UpdateRowValues(currentRowIndex, strIdentifier, d440, d500, d560, d620, d700);
+            //  update the <LIST> with the new Mean and GSD values return
+            //  if results = true, rebind grid
+            if (results)  // emm 0221
+            {
+                GSDView.DataBind();
+                return true;
+            }
+
+        }
+        catch(Exception e)
+        {
+            GlobalClass.ErrorMessage = "Error in Default.aspx.cs (UpdatingRowValues(args): Error Message:" + e.Message; 
+            results = false;
+        }
+        return results;
+
+
+    }
+
+    protected void GSDView_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            this.lblRowError.Text = "An exception occurred. " +
+                "Please correct any invalid data and try again.<br /><br />" +
+                "Message: " + e.Exception.Message;
+            e.ExceptionHandled = true;
+            e.KeepInEditMode = true;
+        }
+        else if (e.AffectedRows == 0)
+            this.lblRowError.Text = "No rows were updated. Please try again.";
+    }
+
+    protected void linkExcel_Command(Object sender, CommandEventArgs e)
+    {
+        //index = Convert.ToInt32(e.CommandArgument);
+        UpdatingRow(0);
+        GSDView.DataBind();
+        this.lblRowError.Text = "FINISHED showing data.";
+    }
+
+    
+    protected void linkExcel_Click(object sender, EventArgs e)
+    {
+        bool FoundGoodFileName = true;
+        int intChar = 0;
+        //string excelFileName = @"c://" + this.txtExportName.Text.ToString();
+        string excelFileName = this.txtExportName.Text.ToString();
+        intChar = excelFileName.IndexOf(".", 0);
+        if (intChar == -1) { FoundGoodFileName = false;}
+
+        intChar = excelFileName.IndexOf(".xls", 0);
+        if (intChar == -1) { FoundGoodFileName = false;}
+
+              
+        if (String.IsNullOrEmpty(excelFileName)) { FoundGoodFileName = false;}
+        
+        excelFileName = "c://" + this.txtExportName.Text.ToString();
+
+        if (FoundGoodFileName)
+        {
+           // try
+           // {
+                GridViewExportUtil.Export(@excelFileName, this.GSDView);
+               
+           // }
+           // catch(Exception e)
+           // {
+           //     GlobalClass.ErrorMessage = "Excel File Name not found in Default.aspx.cs linkExcel(object, EventArgs)" + e.Message;
+           //     Response.Redirect("ErrorMessage.aspx");
+           // }
+            
+
+        
+        }
+        else
+        {
+            this.lblRowError.Text = "Please enter an Excel filename in the form 'FileName.xls'.";
+        }
+
+    }
+
+
+    protected void linkUpload_Click(object sender, EventArgs e)
+    {
+
+        // FileName created in Javascript: GetValue
+        //string ExcelFileName = this.txtFileName.Value.ToString();
+        string ExcelFileName = ExcelFile.PostedFile.FileName.ToString(); //.FileName..Substring(ExcelFile.PostedFile.FileName.LastIndexOf("\\") + 1);
+        bool retVal = false;
+
+        //  Clear all of the rows
+        if (!(Table_Values.DeleteRowValues()))
+        {
+
+            Response.Redirect("ErrorMessage.aspx");
+        }
+
+        GlobalClass.Master_NumberOfRows = 100;
+
+        // This adds new rows to the Gridview Datasource
+        retVal = UploadFileData(ExcelFileName);
+
+
+
+        if (!(retVal))
+        {
+            Response.Redirect("ErrorMessage.aspx");
+        }
+        else
+        {
+            GSDView.DataBind();
+        }
+
+        this.lblRowError.Text = "FINISHED showing data."; 
+
+    }
+    
+
+    protected void AcceptRowChanges() // emm 0225 (object sender, EventArgs e)
+    {
+
+        bool results = false;
+        CheckBox chk;
+        String strIdentifier = string.Empty;
+        double d440 = 0.00;
+        double d500 = 0.00;
+        double d560 = 0.00;
+        double d620 = 0.00;
+        double d700 = 0.00;
+       
+     
+
+        foreach (GridViewRow gvr in GSDView.Rows)
+        {
+            chk = new CheckBox();
+            chk = (CheckBox)gvr.FindControl("chkAccept");
+
+
+            //if (chk.Checked)
+            //{
+
+                System.Web.UI.WebControls.TextBox tCell = (System.Web.UI.WebControls.TextBox)gvr.FindControl("lblIdentifier");
+                strIdentifier = tCell.Text;
+
+                tCell = (System.Web.UI.WebControls.TextBox)gvr.FindControl("lbl440");
+                d440 = Convert.ToDouble(tCell.Text);
+
+                tCell = (System.Web.UI.WebControls.TextBox)gvr.FindControl("lbl500");
+                d500 = Convert.ToDouble(tCell.Text);
+
+                tCell = (System.Web.UI.WebControls.TextBox)gvr.FindControl("lbl560");
+                d560 = Convert.ToDouble(tCell.Text);
+
+                tCell = (System.Web.UI.WebControls.TextBox)gvr.FindControl("lbl620");
+                d620 = Convert.ToDouble(tCell.Text);
+
+                tCell = (System.Web.UI.WebControls.TextBox)gvr.FindControl("lbl700");
+                d700 = Convert.ToDouble(tCell.Text); 
+                
+                results = Table_Values.UpdateRowValues(gvr.RowIndex, strIdentifier, d440, d500, d560, d620, d700);
+                GSDView.DataBind();
+            //}
+        }
+
+        //GSDView.DataBind();  0223 1211
+        this.lblRowError.Text = "Completed calculation of modified (checked) rows.";
+    }
+
+    protected void txtNumberOfEntries_TextChanged(object sender, EventArgs e)
+    {
+
+        this.lblRowError.Visible = false;
+        int CheckValue;
+
+        try
+        {
+            CheckValue = Convert.ToInt16(this.txtNumberOfEntries.Text.ToString());
+
+        }
+        catch
+        {
+            this.lblRowError.Visible = true;
+            this.lblRowError.Text = "Please enter a positive integer value.  Please read the instructions above.";
+            return;
+        }
+
+
+        if (!(CheckValue > 0) || (CheckValue > Convert.ToInt16(ConfigurationManager.AppSettings["Max_Number_Of_Rows"].ToString())))
+        {
+            this.lblRowError.Visible = true;
+            this.lblRowError.Text = "The number of rows you have entered is less than or equal to 0 or exceeds the permitted amount. Please see the instructions above";
+            return;
+
+        }
+
+
+        if (CheckValue > 0)
+        {
+            GlobalClass.Master_NumberOfRows = CheckValue;
+            this.lblRowError.Visible = true;
+            this.lblRowError.Text = "Please select 'Build Rows'.";
+        }
+        else
+        {
+            this.lblRowError.Visible = true;
+            this.lblRowError.Text = "Please read the instructions above.";
+            return;
+        }
+
+
+    }
+    
+}
+        
+        
+        
+        
+        
+        
+        
+    
+
+   

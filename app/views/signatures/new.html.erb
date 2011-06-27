@@ -1,0 +1,307 @@
+<% form_for(:signatures , :url => {:action => 'create'}) do |item| %> 
+
+<% if @signatures.errors.any? %>
+  <div id="error_explanation">
+    <h2>&nbsp;<%= pluralize(@signatures.errors.count, "error") %> 
+        prohibited this new petition signature from being saved:</h2>
+    <% if @signatures.errors.count == 1 %>
+    <p>There is a problem with the following field:</p>
+    <% else %>
+    <p>There was problem with the following fields:</p>
+    <% end %>
+    <ul>
+    <% @signatures.errors.full_messages.each do |msg| %>
+      <li>&nbsp;<%= msg %>&nbsp;</li>
+    <% end %>
+    </ul>
+  </div>
+
+<% end %>
+<% mySignatureCount = Signatures.count %>
+
+<table class=ListComments >
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr >
+<td width="5%" >&nbsp;</td>
+<td class=PetitionTitle colspan=2>Sign the Petition</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=labelgreen colspan=4>Green fields are required. (x) indicates maximum characters.</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=3 >
+<table CELLPADDING="0" CELLSPACING="0">
+<tr>
+<td class=labelgreen width="32%">First Name (15)</td>
+<td width="1%" >&nbsp;</td>
+<td class=label1 width="10%"> MI (1)</td>
+<td width="1%" >&nbsp;</td>
+<td class=labelgreen width="40%">Last Name (15)</td>
+<td width="18%" >&nbsp;</td>
+</tr>
+</table>
+</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=3 >
+<table CELLPADDING="0" CELLSPACING="0">
+<tr>
+<td width="32%"><%= item.text_field(:first_name, :size=> 15) -%></td>
+<td width="1%" >&nbsp;</td>
+<td width="10%"><%= item.text_field(:mi, :size => 1) -%>&nbsp;</td>
+<td width="1%" >&nbsp;</td>
+<td width="40%"><%= item.text_field(:last_name, :size=> 15) -%></td>
+<td width="18%" >&nbsp;</td>
+</tr>
+</table>
+</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=5 class=displayname style="valign:bottom;">
+Display Name? (Check if you want your name to appear in the Petition listing):<%= item.check_box('display_name') %></td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=3>
+<table CELLPADDING="0" CELLSPACING="0">
+<tr>
+<td class=labelgreen width="27%">Alias (6...16 characters)</td>
+<td width="1%" >&nbsp;</td>
+<td class=labelgreen width="20%" style="text-align:left">Year of Birth</td>
+<td width="15%" >&nbsp;</td>
+</tr>
+</table>
+</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+
+<tr   >
+<td width="5%" >&nbsp;</td>
+<td colspan=3>
+<table CELLPADDING="0" CELLSPACING="0">
+<tr>
+<td width="22%"><%= item.text_field(:alias, :size=> 16) %></td>
+<td width="1%" >&nbsp;</td>
+<td width="20%"><%= select("signatures", "YOB", 1910.upto(2000).to_a ) %></td>
+<td width="15%" >&nbsp;</td>
+</tr>
+</table>
+</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=label1 colspan=4>email address: (50)</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=4><%= item.text_field(:email, :size=> 50) %></td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=labelgreen colspan=2>Address Line 1 (20)</td>
+<td class=label1 colspan=2>Address Line 2 (20)</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+
+<tr >
+<td width="5%" >&nbsp;</td>
+<td colspan=2><%= item.text_field(:address1, :size => 20) %></td>
+<td colspan=2><%= item.text_field(:address2 , :size => 20) %></td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="20%" >&nbsp;</td>
+<td width="20%" class=labelgreen>City</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" class=labelgreen>State</td>
+<td width="20%" class=label1 >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr >
+<td width="5%" >&nbsp;</td>
+<td width="20%"><%= item.text_field(:city, :size => 15) %></td>
+<td width="20%">&nbsp;</td>
+<td width="20%" align=left><%= select("signatures", "state_id", State.all.collect {|st| [ st.state, st.id ] } ) %></td>
+<td width="20%" >&nbsp;</td>
+<td width="50%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=3>
+<table CELLPADDING="0" CELLSPACING="0" align=left>
+<tr>
+<td class=labelgreen width="50%">Country</td>
+<td width="1%" >&nbsp;</td>
+<td class=label1 width="20%" align=left>Postal Code</td>
+<td width="1%" >&nbsp;</td>
+</tr>
+</table>
+</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+
+</tr>
+
+
+<tr   >
+<td width="5%" >&nbsp;</td>
+<td colspan=3>
+<table CELLPADDING="0" CELLSPACING="0">
+<tr>
+<td width="50%"><%= select("signatures", "country_id", Country.all.collect {|st| [ st.country, st.id ] } ) %></td>
+<td width="1%" >&nbsp;</td>
+<td width="20%"><%= item.text_field(:postal_code, :size => 12) %></td>
+<td width="1%" >&nbsp;</td>
+</tr>
+</table>
+</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=3>
+<table CELLPADDING="0" CELLSPACING="0">
+<tr>
+<td class=label1 valign=top >Comments (255):</td>
+<td width="1%" >&nbsp;</td>
+<td rowspan=3><%= item.text_area(:comments,:rows=>5, :cols=>20 ) %></td>
+</tr>
+</table>
+</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=5 align=right class=labelgreen>&nbsp;<%= item.check_box('signature_agreement') %>
+I attest that I am a responsible person and that I am offering my signature in earnest.</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=5>
+<table>
+<tr>
+<td ><%= submit_tag "Submit Electronic Signature" , {:class=>"button_style" } %></td>
+<td width="1%" >&nbsp;</td>
+<td ><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, { :class=>"button_style"} %></td>
+<td width="1%" >&nbsp;</td>
+<td align=center><input type="reset" value="Clear Entries" class="button_style"   ></td>
+</tr>
+</table>
+</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=4 align=center valign=middle class=PetitionTitle2>Click one of the above options once, please.</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="20%"><%= item.hidden_field :created_at, :value => Time.now %></td>
+<td width="20%">&nbsp;</td>
+<td width="20%">&nbsp;</td>
+<td width="20%"><%= item.hidden_field :signature_number, :value => (mySignatureCount +1) %></td>
+<td width="5%"><%= item.hidden_field :comments_approved, :value => 0 %></td>
+</tr>
+
+
+</table>
+
+
+<% end %>

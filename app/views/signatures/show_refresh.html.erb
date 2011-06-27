@@ -1,0 +1,205 @@
+<!-- <form> -->
+
+<div class=content>
+
+<p class=PetitionTitle>A Petition to Do XXX YYY ZZZ </p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p>We, the undersigners, agree ..............</p>
+
+
+</div>
+<hr color="green">
+
+<% if @signatures.blank? %>
+<table     class=ListComments>
+
+<tr >
+  <td   width="5%"  ></td>
+  <td   colspan=2 class=label1 align=left>No signatures have yet been submitted.</td>
+  <td   width="20%" align=left ><%= link_to "Sign the Petition",  :controller=>'signatures', :action=>'new' %></td>
+  <td   width="10%"  ></td>
+  <td   width="10%" ></td>
+  <td   width="14%" ></td>
+
+</tr>
+
+</table>
+
+<% else %>
+
+<div class=signature_results >
+
+<table  class=ListComments >
+
+<tr >
+  <td   width="5%"  ></td>
+  <td   width="20%"  ></td>
+  <td   width="20%"  ></td>
+  <td   width="16%"  ></td>
+  <td   width="5%"  ></td>
+  <td   width="5%" ></td>
+  <td   width="11%" ></td>
+  <td   width="12%" ></td>
+  <td   width="6%" ></td>
+
+</tr>
+
+<tr >
+  <td   colspan=4 class=labelgreen valign=center>Displaying signatures in groups of <%= DISPLAY_TEXT %>.</th>
+  <td   colspan=4  class=labelgreen valign=center>Current signature count: <%= Signatures.count %></td>
+  <td   width="6%" ></td>
+
+
+</tr>
+<tr >
+  <th   width="5%"  >No.</th>
+  <th   width="20%"  >Full Name</th>
+  <th   width="20%"  >Alias</th>
+  <th   width="16%"  >City</th>
+  <th   width="5%"  >St.</th>
+  <th   width="5%"  >Ct.</th>
+  <th   width="11%" >Zip</th>
+  <th   width="12%" >Created</th>
+  <th   width="6%" >Delete</th>
+</tr>
+</table>
+
+<% myColor = 0 %>
+<% @signatures.each do |item| %>
+<table class=ListComments >
+  <% myColor = myColor + 1 %>
+	<% if (myColor % 2) == 1 %>
+	 <tr bgcolor="#E8E8E8" >
+	<% else %>
+	<tr >
+	<% end %>
+
+<td   width="5%" ><%=h item.signature_number %></td>
+<td   width="20%" >
+
+<% strMI = item.mi %>
+<% strMI = strMI.to_s %>
+  <% if item.display_name %>
+	
+	<% if strMI.nil? %>
+      <% myStr = item.first_name + " " + item.last_name %>
+	<% fullName = myStr %>
+	<% else %>
+	<% myStr = item.first_name + " " + item.mi + " " + item.last_name %>
+      <% fullName = myStr %>
+	<% end %>
+<% else %>
+<% fullName = '***' %>
+<% end %>
+<%=h fullName %>
+</td>
+
+<td   width="20%" >
+<% strem = item.email %>
+<% strco = item.comments %>
+<% showComments = (not strem.nil?) && (not strco.nil?) && (item.comments_approved) %>
+	<% if (showComments) %>
+            <% myDiv =  'userdetail' + (item.signature_number).to_s %>
+            <%= link_to_function item.alias, 'displayComments(' + myDiv +  ')' %>
+	<% else %>
+		<%=h item.alias %>
+	<% end %>
+</td>
+
+
+<td   width="16%" >
+<%=h item.city %>
+</td>
+
+<td   width="5%" >
+<%=h State.find(item.state_id).abbrev %>
+</td>
+
+<td   width="5%" >
+<%=h Country.find(item.country_id).abbrev %>
+</td>
+
+<td   width="11%" >
+<%= item.postal_code %>
+</td>
+
+<td   width="12%"  id=smalldate  >
+<%=h item.created_at %>
+</td>
+
+
+<td   width="6%"   >
+<%= link_to "delete", :controller=>'signatures', :action=>'delete_display', :id => item.id  %>
+</td>
+</tr>
+
+
+
+</table>
+
+
+<% if (showComments) %>
+<div id="<%= myDiv  %>"  style="display:none;" class=userComments >
+<table class=userComments >
+<tr >
+  <td   width="5%"  >&nbsp;</td>
+  <td   width="20%" class=labelgreen >email</td>
+  <td   width="15%"  >&nbsp;</td>
+  <td   width="20%" class=labelgreen >Comments</td>
+  <td   width="10%"  >&nbsp;</td>
+  <td   width="10%" >&nbsp;</td>
+  <td   width="14%" >&nbsp;</td>
+</tr>
+
+<tr>
+<td   width="5%">&nbsp;</td>
+<td   colspan=2 ><%=h mail_to item.email %></td>
+<td   colspan=3 rowspan=4 valign=top><%=h item.comments %></td>
+<td   width="14%" >
+</td>
+</tr>
+
+<tr >
+  <td   width="5%"  >&nbsp;</td>
+  <td   width="20%"  >&nbsp;</td>
+  <td   width="15%"  >&nbsp;</td>
+  <td   width="14%" >&nbsp;</td>
+</tr>
+
+<tr >
+  <td   width="5%"  >&nbsp;</td>
+  <td   width="20%"  >&nbsp;</td>
+  <td   width="15%"  >&nbsp;</td>
+  <td   width="14%" >&nbsp;</td>
+</tr>
+
+<tr >
+  <td   width="5%"  ></td>
+  <td   width="20%"  >&nbsp;</td>
+  <td   width="15%"  >&nbsp;</td>
+  <td   width="14%" >&nbsp;</td>
+</tr>
+
+<tr >
+  <td   width="5%"  ></td>
+  <td   width="20%"  ></td>
+  <td   width="15%"  ></td>
+  <td   width="20%"  ></td>
+  <td   width="10%"  ></td>
+  <td   width="10%" ></td>
+  <td   width="14%" ></td>
+</tr>
+</table>
+</div>
+<% end %>
+<% end %>
+
+<div id=groupsofrecords>
+<%= render :partial => 'signatures/groupsof'  %>
+</div>
+<% end %>
+
+</div>
+
+<!-- </form> -->

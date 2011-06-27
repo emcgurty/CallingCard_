@@ -1,0 +1,138 @@
+<% form_for(:perspectives) do |new_form| %> 
+<% if @perspectives.blank? %>
+
+<table class=userComments width="100%" >
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td colspan=2 class=PetitionTitle >Shared Perspectives</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" colspan=3>No perspectives have been approved as yet.</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+</table>
+
+
+<% else %>
+<table class=userComments width="100%" >
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td colspan=2 class=PetitionTitle >Shared Perspectives</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+<tr valign="top">
+<td width="2%"  ></td>
+<td width="10%" ></td>
+<td width="15%" ></td>
+<td width="35%" ></td>
+<td width="20%" ></td>
+</tr>
+
+<tr valign="top" align=left>
+<td width="2%"  >&nbsp;</td>
+<td width="10%" valign=top>Alias</td>
+<td width="15%" valign=top>email</td>
+<td width="35%" >Comments</td>
+<td width="20%" >Date Created</td>
+<td width="20%" >delete</td>
+
+</tr>
+<% myColor = 0 %>
+<% @perspectives.each do |items| %>
+<% myColor = myColor +1 %>
+<% if (myColor % 2) == 1 %>
+<tr bgcolor="#E8E8E8" >
+<% else %>
+<tr  >
+<% end %>
+<td width="2%"   >&nbsp;</td>
+<td width="10%"  valign=top><%=h items.alias %></td>
+<td width="15%"  valign=top><%=h mail_to items.email %></td>
+<td width="35%"  valign=top><%=h items.comments %></td>
+<td width="20%"  valign=top class=smalldate><%=h items.created_at %></td>
+<td width="20%"  valign=top class=smalldate>
+
+<%= link_to "DELETE", :controller=> 'perspectives', :action=>'delete_confirm',  :id => items.id  %></td>
+
+</tr>
+
+<% end %>
+</table>
+
+
+<% end %>
+
+<table class=ListComments width="100%" >
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td colspan=2  ><%= link_to "Offer Your Perspective" , {:controller=>'perspectives', :action=>'new'}, :class=>"button_style" %></td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" ></td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+<tr valign="top">
+<td width="2%"  >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="15%" >&nbsp;</td>
+<td width="35%" >&nbsp;</td>
+<td width="20%" >&nbsp;</td>
+</tr>
+
+</table>
+
+<% end %>

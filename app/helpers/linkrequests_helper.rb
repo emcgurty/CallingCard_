@@ -1,0 +1,2 @@
+module LinkrequestsHelper
+end

@@ -1,0 +1,77 @@
+<form>
+<table class=ListComments >
+<tr>
+<td width="3%">&nbsp;</td>
+<td width="80%" class=PetitionTitle>Welcome to the Petition to ....</td>
+<td width="17%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="3%">&nbsp;</td>
+<td width="80%">
+<ul class=home_listing> 
+	  <li class=label1 >The purpose of this site is to gather signatures of people that support the ban ..............</li> 
+	  <li class=label1 >General site use instructions.</li> 
+		<ul>
+		<li class=tier1>'The Petition' Options</li>
+		   <ul>
+                  <li class=tier2><%= link_to "View All Signatures", :controller=>'Signatures', :action=>'show_refresh' %></li>
+   			    <ul class=home_listing>
+                           <li class=tier3>Provides the text of the petition and a listing of current signatures.</li>
+		          </ul>
+               </ul>
+	         <ul>
+                 <li class=tier2><%= link_to "Sign the Petition",  :controller=>'Signatures', :action=>'new' %></li>
+			    <ul class=home_listing>
+                         <li class=tier3>Provide your name, if you want it displayed within the 'View All Signatures' listing, check 'Display Name?'.</li>
+				 <li class=tier3>Provide your 'Year of Birth', asked only to distinguish you from family members or people of the same name.</li>
+		             <li class=tier3>Provide comments, which should be relevant to your motivation in signing the petition. If you provide comments, your email address is required; comments are subject to approval.</li>
+			    </ul>
+                    
+		   </ul>
+
+		<li class=tier1>'Share Your Perspective' Options</li>
+
+	   <ul>
+               <li class=tier2 ><%= link_to "Add Your Perspective",  :controller=>'perspectives', :action=>'new' %></li>
+   			    <ul>
+                           <li class=tier3>An opportunity to share your perspective or life experience regarding uranium mining.  Content will be reviewed before site posting.</li>
+		          </ul>
+               </ul>
+	         <ul>
+                 <li class=tier2><%= link_to "View All Perspectives",  :controller=>'perspectives', :action=>'list' %></li>
+			    <ul>
+				 <li class=tier3>A listing of all approved Perspective comments with an opportunity to email the person that offered a comment.  Sorry but this site will not maintain threads on comments.</li>
+			    </ul>
+                    
+		   </ul>
+
+
+		<li class=tier1>'Offer Your Link' Option</li>
+         <ul>
+             <li class=tier2 >In the interest of more complete information and fairness, offer your link information here and then, if approved, it will be displayed on this site. 
+             </li>
+		    </ul>
+
+		</ul>
+
+  	<li class="tier1">Content and Punctuation</li>
+  <ul>
+    <li class="tier2" >Matter #1</li>
+    <li class="tier2" >Matter #2</li>
+    <li class="tier2" >Matter #3</li>
+    <li class="tier2" >Matter #4</li>
+  </ul>
+
+</ul>
+
+  
+  <li class=label1 >If you do not wish to sign this petition, ....</li>
+  <li class=label1>Otherwise, have a wonderful day! And I thank you very much.</li>
+	  </ul> 
+ </td>
+<td width="17%">&nbsp;</td>
+</tr>
+</table>
+</form>
+

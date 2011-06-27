@@ -1,0 +1,124 @@
+<form>
+<table width="55%">
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td colspan=3>Thank you for offering your perspective on <%= APP_WWW %>.</td>
+<td width="5%">&nbsp;</td>
+
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">Alias:&nbsp;</td>
+<td colspan=2"><%=h @alias %></td>
+
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">Comments:&nbsp;</td>
+<td colspan=2 rowspan=3 valign="top">
+
+ <% if @comments.nil? %>
+    Not Provided
+ <% else %>
+    <%=h @comments %>	
+  <% end %>
+</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">Date posted:</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%" colspan=3>    <%=h @created_at %>	</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+<tr>
+<td width="5%">&nbsp;</td>
+<td colspan=3 rowspan=2>Within a few business days you will receive notice of acceptance.  Otherwise, please disregard this email if you have received it in error.</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+</table>
+
+</form>
+

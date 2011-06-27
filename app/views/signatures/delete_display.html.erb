@@ -1,0 +1,226 @@
+<table class=ListComments width="80%" >
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr >
+<td width="5%" >&nbsp;</td>
+<td class=PetitionTitle colspan=4>Delete from Petition  </td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="5%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=label1 colspan=2>First Name:</td>
+<td class=label1 width="10%"> MI:</td>
+<td class=label1 colspan=2>Last Name:</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=2><%= @signatures.first_name %></td>
+<td width="10%"><%= @signatures.mi %></td>
+<td colspan=2><%= @signatures.last_name %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=label1 colspan=2>Alias</td>
+<td colspan=2 class=label1>Year of Birth</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr   >
+<td width="5%" >&nbsp;</td>
+<td colspan=2><%= @signatures.alias %></td>
+<td colspan=2 ><%= @signatures.YOB %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td class=label1 colspan=2>email address: </td>
+<td colspan=3><%= @signatures.email %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td  class=label1 colspan=2>Address Line 1:</td>
+<td class=label1 colspan=2>Address Line 2:</td>
+<td class=label1 colspan=2>City:</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr >
+<td width="5%" >&nbsp;</td>
+<td colspan=2><%= @signatures.address1 %></td>
+<td colspan=2><%= @signatures.address2 %></td>
+<td colspan=2><%= @signatures.city %></td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=2 class=label1>State:</td>
+<td colspan=2 class=label1>Country:</td>
+<td colspan=2 class=label1 >Postal Code:</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr   >
+<td width="5%" >&nbsp;</td>
+<td colspan=2 align=left><%= State.find(@signatures.state_id).state %></td>
+<td colspan=2 alogn=left><%= Country.find(@signatures.country_id).country %>  </td>
+<td colspan=2 ><%= @signatures.postal_code %></td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" class=label1 valign=top >Comments:</td>
+<td colspan=4 rowspan=3 align=left valign=top><%= @signatures.comments %></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+<td width="5%" ></td>
+</tr>
+
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=2 align=center><%= link_to "Delete this signature" , {:controller=>'Signatures', :action=>'delete', :id=> @signatures.id}, {:class=>"button_style" } %></td>
+<td colspan=2 align=center><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, 
+              { :class=>"button_style"}%></td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%" >&nbsp;</td>
+<td colspan=5 align=center valign=center class=PetitionTitle2>Click one of the above options once, please.</td>
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+<td width="5%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="10%"></td>
+<td width="10%">
+</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+</table>
+
+

@@ -1,0 +1,61 @@
+  <h2 >Petition site email results</h2>
+
+  <% if flash[:notice] %>
+  
+<table class=ListComments>
+
+<tr>
+
+<td width="5%"></td>
+<td width="60%" colspan=2 class=PetitionTitle>Email results:</td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%" rowspan=2 colspan=2 class=titlegreen><%= flash[:notice] %></td>
+<td width="30%"></td>
+</tr>
+
+
+<tr>
+<td width="5%"></td>
+<td width="60%"></td>
+<td width="30%"></td>
+</tr>
+
+
+<tr>
+<td width="5%"></td>
+<td width="60%" rowspan=2 >
+If your email result was not successful, please verify your email address and try again. Otherwise I thank you for using the Petition site.
+</td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%"></td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%" ><%= link_to "Return to Petition Signatures",  :controller=> :signatures, :action=> :show_refresh %></td>
+<td width="30%"></td>
+</tr>
+
+<tr>
+<td width="5%"></td>
+<td width="60%"></td>
+<td width="30%"></td>
+</tr>
+
+</table>
+
+  <% end %>

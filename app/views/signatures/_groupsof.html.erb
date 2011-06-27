@@ -1,0 +1,80 @@
+<%  @signatures = Signatures.find(:all, :readonly => true, :order=>'signature_number ASC') %>
+<% if not (@signatures.blank?) %>
+
+<table width="100%" rules="rows" >
+
+<tr>
+<td width="19%"></td>
+<td width="19%"></td>
+<td width="19%"></td>
+<td width="19%"></td>
+<td width="19%"></td>
+<td width="5%"></td>
+
+</tr>
+<tr>
+<td colspan=2 align=left valign=center>
+<%= link_to "Sign the Petition",  {:controller=>'Signatures', :action=>'new'}, :class=>"button_style" %>
+</td>
+<td width="19%">&nbsp;</td>
+<td width="19%">&nbsp;</td>
+<td width="19%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+
+</tr>
+<tr>
+<td width="19%">&nbsp;</td>
+<td width="19%">&nbsp;</td>
+<td width="19%">&nbsp;</td>
+<td width="19%">&nbsp;</td>
+<td width="19%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+
+</tr>
+
+<tr >
+
+ <% myRowCount =  @signatures.count %>
+ <% myLastFew = 0 %>
+ <% myLastFew = (myRowCount % DISPLAY_ROWS) %> 
+ <% i = 1 %> 
+ <% j = 0 %> 
+ <% startID = 'nil' %>
+
+<% @signatures.each do |item| %>
+ 	
+            
+              <% if startID ==  'nil' %>
+              <%   startID = item.signature_number %>
+		  <% end %>
+		
+           <% if i <= (myRowCount - myLastFew +1) %>
+		<% if (i % DISPLAY_ROWS== 0)  %>
+      	   <% myLinkTitle = "Signatures " + (i-(DISPLAY_ROWS-1)).to_s + "..." + (i).to_s %>
+              <td width="19%" valign=center align=left>
+                <%= link_to myLinkTitle, {:controller => :signatures, :action => "show_refresh", :id => startID}, :class=>"button_style" %>
+              </td>
+		  <% j += 1 %> 
+              <% if (j % 4) == 0 %>
+			</tr><tr>
+              <% end %> 
+   	        <% startID = 'nil' %>
+            <% elsif (i > (myRowCount - myLastFew) ) %>
+		   <% myLinkTitle = "Signatures " + (i).to_s + "..." + (myRowCount).to_s %>
+              <td width="19%" valign=center align=left>
+                <%= link_to myLinkTitle, {:controller => :signatures, :action => "show_refresh", :id => startID}, :class =>"button_style"  %>
+              </td>
+   	        <% startID = 'nil' %>
+		<% end %>
+           <% i +=1 %>
+		
+		<% end %>
+               
+<% end %>
+
+</tr>
+
+</table>
+
+<% end %>
+
