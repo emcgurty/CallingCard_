@@ -5,7 +5,7 @@
  <% j = 0 %> 
  
 
-<% @linkrequest.each do |item| %>
+<% @linkrequests.each do |item| %>
  	           
            
               <td width="20%" align=center valign=center>
@@ -15,7 +15,7 @@
 		<td align=center valign=center>
 <% myStr = h(item.organization_url).to_s %>
 <% myStr = myStr.gsub('.', '(dot)' )  %>
-	<img src=<%=h url_for(:controller => 'Linkrequests', :action => 'displayPicture', :id => item.id ) %>
+	<img src=<%=h url_for(:controller => 'Linkrequests', :action => 'displayPicture', :uuid => item.uuid ) %>
                    width="30%" height="30%" alt=<%=h item.organization_name %> /></td>
 </tr>
 <tr>

@@ -1,5 +1,7 @@
 <!-- <form> -->
-
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+<% end %>
 <div class=content>
 
 <p class=PetitionTitle>A Petition to Do XXX YYY ZZZ </p>

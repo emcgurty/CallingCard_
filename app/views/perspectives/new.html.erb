@@ -121,7 +121,7 @@
 <td colspan=4><%=h nf.hidden_field :created_at, :value => Time.now %> 
 <%=h nf.hidden_field :machine_ip, :value => request.remote_ip %> 
 </td>
-<td width="5%"   > &nbsp;</td>
+<td colspan=4><%=h nf.hidden_field :user_id, :value => session[:user_id] %> 
 </tr>
 
 </table>

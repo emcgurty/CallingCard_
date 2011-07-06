@@ -1,228 +1,238 @@
-<% if flash[:notice] %>
-  <%= flash[:notice] -%>
-<% end %>
-
-
-
-<table class=ListComments >
-
+<table class=ListComments width="100%">
 <tr  >
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td width="5%"></td>
+<td width="20%"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td width="25%" ></td>
 </tr>
 
 
 <tr  >
 <td width="5%"></td>
-<td colspan=3  class=PetitionTitle >Confirmation for Your Link Request</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
-</tr>
-
-<tr  >
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td colspan=3  class=PetitionTitle >Confirmation for your Request</td>
+<td></td>
+<td></td>
+<td></td>
+<td width="25%" ></td>
 </tr>
 
 <tr  >
 <td width="5%"></td>
-<td colspan=2  class=label1 >Organization Name</td>
-<td colspan=2 class=label1>Organization URL</td>
-<td width="15%" >&nbsp;</td>
+<td width="20%">  </td>
+<td>  </td>
+<td>  </td>
+<td>  </td>
+<td>  </td>
+<td>  </td>
+<td width="25%">  </td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td colspan=2  class=labelg >Organization Name</td>
+<td></td>
+<td colspan=2 class=labelg>Organization URL</td>
+<td></td>  
+<td width="25%"></td>
 </tr>
 
 
 <tr  >
 <td width="5%"></td>
-<td colspan=2><%=h @linkrequest.organization_name %></td>
-<% myStr = h(@linkrequest.organization_url).to_s %>
+<td colspan=2><%=h @linkrequests.organization_name %></td>
+<td></td>  
+<% myStr = h(@linkrequests.organization_url).to_s %>
 <% myStr = myStr.gsub('.', ' (dot) ' )  %>
-<td colspan=2><%= myStr %></td>
-<td width="15%" >&nbsp;</td>
-</tr>
-
-
-<tr  >
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td colspan=3><%= myStr %></td>
+<td></td>  
 </tr>
 
 
 <tr  >
 <td width="5%"></td>
-<td width="20%" class=label1>City</td>
-<td width="20%" class=label1>State</td>
-<td width="20%" class=label1>Country</td>
-<td width="20%" class=label1>Zip</td>
-<td width="15%">&nbsp;</td>
+<td colspan=2></td>
+<td></td>  
+<td></td>  
+<td></td>
+<td></td>
+<td width="25%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="20%" class=labelg>City</td>
+<td class=labelg>State&nbsp;&nbsp;</td>
+<td class=labelg>Country&nbsp;&nbsp;</td>
+<td class=labelg>Zip</td>
+<td></td>
+<td></td>
+<td width="25%"></td>
 </tr>
 
 <tr  >
 <td width="5%"></td>
-<td width="20%"><%=h @linkrequest.city %></td>
-<td width="20%"><%=h State.find(@linkrequest[:state_id]).abbrev %>&nbsp;</td>
-<td width="20%"><%=h Country.find(@linkrequest[:country_id]).abbrev %>&nbsp;</td>
-<td width="20%"><%=h @linkrequest.zip_code %> </td>
-<td width="15%">&nbsp;</td>
+<td width="20%"><%=h @linkrequests.city %></td>
+<td><%=h State.find(@linkrequests.state_id).abbrev %>&nbsp;</td>
+<td><%=h Country.find(@linkrequests.country_id).abbrev %>&nbsp;</td>
+<td><%=h @linkrequests.zip_code %> </td>
+<td></td>
+<td></td>
+<td width="25%" ></td>
+
 </tr>
 
 <tr  >
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td width="5%"></td>
+<td width="20%">  </td>
+<td>  </td>
+<td>  </td>
+<td>  </td>
+<td>  </td>
+<td>  </td>
+<td width="25%">  </td>
 </tr>
 
 <tr  >
-<td width="5%">&nbsp;</td>
-<td colspan=2 class=label1>Mission Statement</td>
-<td colspan=2 class=label1 >Organization Image</td>
-<td width="15%">&nbsp;</td>
+<td width="5%"></td>
+<td colspan=3 class=labelg>Mission Statement</td>
+<td colspan=2 class=labelg >Organization Image</td>
+<td></td>
+<td width="25%"></td>
 </tr>
 
 <tr  >
-<td width="5%">&nbsp;</td>
-<td colspan=2 rowspan=2 valign=top class=labelr1  ><%=h @linkrequest.mission %></td>
+<td width="5%"></td>
+<td colspan=3 rowspan=2 valign=top class=labelr1  ><%=h @linkrequests.mission %></td>
 <td colspan=2 rowspan=2 valign=top class=labelblue>
 
 <%  myStr = 'N/A' %>
-<% if @linkrequest.image_file_name.nil? %>
+<% if @linkrequests.image_file_name.nil? %>
 File name: <%= myStr%><br>Content type: <%= myStr %>
 <% else %>
-File name: <%=h @linkrequest.image_file_name %><br>Content type: <%=h @linkrequest.image_content_type %>
+File name: <%=h @linkrequests.image_file_name %><br>Content type: <%=h @linkrequests.image_content_type %>
 <div class=picture_content >
-<% if @linkrequest.img_height > 100 || @linkrequest.img_width > 100 %>
+<% myH = @linkrequests.img_height.to_i %>
+<% myW = @linkrequests.img_width.to_i %>
+
+<% if myH > 100 || myW > 100 %>
 The image you have offered is too large.
 <% else %>
-<img src=<%= url_for(:controller => 'linkrequests', :action => 'displayPicture', :id => @linkrequest.id ) %> />
+<img src=<%= url_for(:controller => 'Linkrequests' ,:action => 'displayPicture', :uuid => @linkrequests.uuid ) %> />
 <% end %>
 </div>
 <% end %>
 
+
 </td>
-<td width="15%" >&nbsp;</td>
+<td> </td>
+<td width="25%"></td>
 </tr>
 
 <tr  >
-<td width="5%">&nbsp;</td>
-<td width="15%">&nbsp;</td>
+<td width="5%"></td>
+<td ></td>
+<td width="25%"></td>
 </tr>
 
 <tr  >
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
-</tr>
-
-<tr  >
-<td width="5%">&nbsp;</td>
-<td colspan=2 class=label1 >Requestor's Name</td>
-<td colspan=2 class=label1>Provided email address</td>
-<td width="15%">&nbsp;</td>
+<td></td>
+<td colspan=2 class=labelg >Requestor's Name</td>
+<td></td> 
+<td colspan=2 class=labelg>Provided email address</td>
+<td></td>
+<td width="25%"></td>
 
 </tr>
 
 
 <tr  >
-<td width="5%" >&nbsp;</td>
-      <% strMI = @linkrequest.mi %>
+<td width="5%" ></td>
+      <% strMI = @linkrequests.mi %>
 	<% if strMI.nil? %>
-	<% fullName = @linkrequest.first_name + " " + @linkrequest.last_name %>
+	<% fullName = @linkrequests.first_name + " " + @linkrequests.last_name %>
 	<% else %>
-	<% fullName = @linkrequest.first_name + " " + @linkrequest.mi + " " + @linkrequest.last_name %>
+	<% fullName = @linkrequests.first_name + " " + @linkrequests.mi + " " + @linkrequests.last_name %>
 	<% end %>
 <td colspan=2  ><%=h fullName %></td>
-<% myStr = h(@linkrequest.email).to_s %>
+<td></td> 
+<% myStr = h(@linkrequests.email).to_s %>
 <% myStr = myStr.gsub('.', ' (dot) ' )  %>
-<td colspan=2 ><%=h myStr %></td>
-<td width="15%">&nbsp;</td>
+<td colspan=3 ><%=h myStr %></td>
+<td></td>
 </tr>
 
 <tr  >
 <td width="5%">&nbsp;</td>
 <td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td width="25%" >&nbsp;</td>
 </tr>
 
 <tr  >
 <td width="5%">&nbsp;</td>
-<td colspan=2><%= link_to_function 'Please cancel my request', 'verify_delete()' , {:class=>"button_style"} %></td>
-<td colspan=2><%= link_to 'Please email request', {:controller=>'linkrequests', :action => 'sendmail', :id=>@linkrequest.id }, {:class=>"button_style"}  %></td>  
-<td width="15%" >&nbsp;</td>
-
+<td colspan=3><%= link_to_function 'Please cancel my request', 'verify_delete()' , {:class=>"button_style"} %></td>
+<td colspan=3><%= link_to 'Please email request', {:controller=>'Linkrequests', :action => 'sendmail', :uuid=>@linkrequests.uuid }, {:class=>"button_style"}  %></td>  
 </tr>
 
 
 <tr  >
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td width="5%"></td>
+<td width="20%"></td>
+<td></td>
+<td>
+</td>
+<td>
+
+
+</td>
+<td></td>
+<td></td>
+<td width="25%" ></td>
 </tr>
 
 </table>
 
 <div id=verify_delete class=verify_d >
-<table class=ListComments >
-<tr  >
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
-</tr>
-
+<table class=userComments width="100%">
 <tr>
-<td width="5%">&nbsp;</td>
+<td width="5%"></td>
 <td colspan=4 class=PetitionTitle >Are you sure you want to cancel this request?</td>
-<td width="15%" >&nbsp;</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="25%" ></td>
 </tr>
 
 <tr>
-<td width="5%">&nbsp;</td>
-<td width="20%" valign=top>
-<%= button_to 'Yes', {:controller=>'linkrequests', :action => 'destroy', :id => @linkrequest.id}, {:class=>"button_style",  :method=>'delete' }%>
+<td width="5%"></td>
+<td width="20%" valign=top><%= button_to 'Yes', {:controller=>'Linkrequests', :action => 'destroy', :uuid => @linkrequests.uuid}, {:class=>"button_style",  :method=>'delete' }%>
 </td>
-<td width="20%" valign=top>
-<input type='button' value='No' onClick='verify_delete();' class="button_style"  />
+<td colspan=2 valign=top>
+<input type='button' value='No' onClick='verify_delete();' style="font-family: arial;  font-size: 14px;  font-weight: normal;  background-color:white;  text-decoration: none;  color: blue; border-color:green;"  />
 </td>
-<td width="20%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="25%" ></td>
 </tr>
 
 <tr>
-<td width="5%">&nbsp;</td>
-<td width="20%">&nbsp;</td>
-<td width="10%">&nbsp;</td>
-<td width="10%">&nbsp;</td>
-<td width="10%">&nbsp;</td>
-<td width="10%">&nbsp;</td>
-<td width="10%">&nbsp;</td>
-<td width="15%" >&nbsp;</td>
+<td width="5%"></td>
+<td width="20%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="25%" ></td>
 </tr>
 
 </table>

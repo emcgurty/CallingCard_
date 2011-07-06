@@ -1,8 +1,5 @@
 <%= form_for(:users, :url => {:action => 'login'}, :html => {:multipart => true}) do |nf| %>   
 
-
-
-
 <table class=ListComments width="100%">
 <tr  >
 <td width="5%"> </td>
@@ -14,7 +11,6 @@
 <td width="10%"></td>
 <td width="10%" ></td>
 </tr>
-
 
 <tr  >
 <td width="5%"></td>
@@ -76,7 +72,7 @@
 
 <tr  >
 <td width="5%"></td>
-<td width="15%" ><%=h link_to "Forgot my user name", {:controller=>'Users', :action=>"forgot_username"}, :class=>'button_style_small' %></td>
+<td width="15%" ><%=h link_to "Forgot my user name", {:controller=>'Users', :action=>"forgot"}, :class=>'button_style_small' %></td>
 <td colspan=2><%=h link_to "Forgot my password", {:controller=>'Users', :action=>"forgot_password"}, :class=>'button_style_small' %></td>
 <td width="10%"></td>  
 <td width="10%"></td>  
@@ -100,7 +96,7 @@
 <td width="5%">&nbsp;</td>
 <td width="15%" align=left><%= submit_tag  "Login", :class=>"button_style" %></td>
 <td colspan=2 align=left><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, { :class=>"button_style"}%></td>
-<td width="10%" >&nbsp;</td>
+<td width="10%" ><%=h hidden_field_tag(:id)  %> &nbsp;</td>
 
 <td width="10%" >&nbsp;</td>
 <td width="10%" >&nbsp;</td>

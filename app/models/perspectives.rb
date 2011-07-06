@@ -7,7 +7,8 @@ class Perspectives < ActiveRecord::Base
  mi_alpha_regex = /\A[a-zA-Z]+\z/
  alpha_numeric_regex = /\A[0-9 a-zA-Z:;.,!?'-]+\z/
  alpha_numeric_regex_msg = "must be alphanumeric characters with typical punctuation."
- 
+ belongs_to  :users
+
  # downcase only effective in ASCII region 
  ## Validation on length not necessary as done at presentation level, but whoops doesn't always work!
 

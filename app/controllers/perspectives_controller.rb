@@ -1,11 +1,10 @@
 class PerspectivesController < ApplicationController
-
+before_filter :login_required
 before_filter :user_delete,  :only=>[:delete]
 ##cache_sweeper :perspectives_sweeper
 
 
    def new
-      @perspectives = Perspectives.new
    end
 
    def create

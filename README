@@ -4,9 +4,8 @@ You have discovered my calling card, a fully functional Ruby on Rails applicatio
 This sample application is derived from a Petition web-site that I deployed successfully via Dream Host, www.banumva.org.  
 It's not perfect, largely because I am working in a time constraint, e.g. I need to find a job!  
 
-What's lacking is that I had difficulty in implementing the use of a UUID as a primary key rather than the standard ROR
- auto-increment id, preventing the ROR text_area from being user resized, and reconciling differences between FireFox
- and MS Internet Explorer and other browsers to name of few.
+What's lacking is that I had difficulty in preventing the ROR text_area from being user resized, and reconciling differences between FireFox
+ and MS Internet Explorer and other browsers to name of a couple.
 
 My application reflects a strong grasp of the following:
 
@@ -31,15 +30,12 @@ My application reflects a strong grasp of the following:
 ~	Benchmarking, e.g., I elected to use my _groupsof partial rather an ROR's Pagination, and tested Model.find(:all), verses Model.connection.execute(Select *..) and Model.connection.execute(Select field names..).
 ~	For fun implemented Jacob Seidelin’s MojoMagnify Javascript, an interesting scaling translation illusion.  Behaves very well in IE and poorly in FoxFire.
 ~	Implemented Fast Image to learn the pixel size of images, which I will eventually use to resize images, e.g., thumbnail-sized.
+~	Implemented restful_authenication
+~	Implemented UUID as a primary key 
+~     Implemented primary and foreign keys
 ~	Rather than saving images to the database to store on server.  Rewrote send_data, particularly.
 
 What is either not complete or not reflected in the application:
-
-~	I did not have the time to integrate the significance of a Login with regard to privileges and other material access, 
-            an application view vs. a maintenance view, and within the database itself, e.g., incorporating a user_id as a foreign key to most of the tables.  However my previous experience demonstrates a complete and successful knowledge of these features or functionality.
-
-~	You might find some differences between application-level data requirements and database requirements, e.g. varchar length, 
-            null or not null. 
 
 ~	In generating presentation HTML, I prefer to use tables.  I haven't done much research as to recent trends in HTML presentation, I am sure that there are alternatives vastly easier than tables.
 
@@ -69,103 +65,4 @@ If you have any questions or concerns, please do not hesitate to ask.  Otherwise
 All the best,
 
 Elizabeth McGurty
-
-
-<++++   RESUME ++++>
-
-
-Qualifications
-·	Life-time student of mathematics, technology and business processes  
-·	Particularly adept at providing decision-makers with metrics-based solutions
-·	Fluent and effective in multiple client-server and web-based development languages
-·	Expert knowledge of relational and OLAP database design, development, and access
-·	Excellent in object-oriented design and implementations
-
-Technical Skills
- 
-Adobe Acrobat 9.0	-- Database design & development --	MS SQL Server 	   
-Agile: BDD, TDD	Ruby and Ruby on Rails	ROR Plug-ins	   
-AJAX	HTML & DHTML	RSpec/Cucumber	   
-ASP.NET and VB.NET 	JavaScript	Transact-SQL	   
-C, C# and C++	Jquery	XML	   
-CSS	MooTools	YUI	 
-
-EMPLOYMENT HISTORY
-
-Independent Contractor August, 2008 – Present
-Ruby on Rails (3.0.3)
-·	Create interactive web-sites with database connectivity
-WordPress Developer, Alterations and Home Textile Services
-·	Designed and developed ASP.NET with C# and Wordpress websites
-Web and MS Access Developer , Millennium Inorganic Chemicals, Hunt Valley, MD
-·	Designed and developed an internationally deployed  “Customer Inquiry” MS Access application
-·	Completed the following multinational object-oriented, database-driven ASP.NET 2.0 with C# web-sites including all aspects of MS SQL Server 2005 database with stored procedures and ad-hoc server-based reporting to verify data, and applied XML, ASP AJAX, JavaScript, Adobe Acrobat 9.0 with iTextSharp, SMTP email, MS Excel with VBA, and advanced principles of mathematics and/or finance.   
--Product Safety Declarations: 
-      Link: http://www.cristalglobal.com/product_declaration/
--Product Declarations Maintenance
-The following involved converting a very large Excel Workbook with extensive VBA, macros and references into an ASP.Net application
--Film Logarithmic Calculation
--All Film Logarithmic Calculation
--All Plant Daily Performance Metrics Prototype
-
-Database Consultant, DuPont Teijin Films, Hopewell, VA
-(One year contract) July, 2007 – July, 2008
-Maintained, updated and upgraded 40 critical MS Access databases – many of which interfaced with MS Excel -- of varying management-level purpose, e.g., management of change; executive financial reporting; bar-code labeling; incident/safety tracking; overtime management and reporting; manufacturing-recipe calculation to name a few.  Provided the additional function of advising on MS Access data integration into corporate SAP.  Technologies/skills applied: Project Management, database design and development, MS Access with VBA, SQL, ASP.NET, SharePoint, connectivity with SAP via ODBC; Lotus Notes, and advanced principles of mathematics and/or finance.
-
-Departed from IT industry to provide urgent child care
-Researched, advocated and blogged for parents with birth-injured children
-	Traveled the United States and Canada to meet with medical experts to understand the rare brachial plexus injury (BPI), shared results with hundreds of parents.  Conducted and contributed to research on BPI.  Learned, shared and applied therapies.
-Math and Computer Science (C++) Instructor / IT Support
-	The Carlbrook School, Halifax, VA (August, 2002 – January, 2004)
-Math Instructor
-	George Washington High School, Danville, VA (Academic Year 2005 – 2006)
-Math Instructor
-	Halifax County High School, South Boston, VA (Academic Year 2006 – 2007)
-
-Technical Lead, CACI International, Chantilly, VA
-August, 2001 – January, 2002
-Upgraded and deployed the United States Army’s application to manage and plan military personnel promotion and training.  Technologies/skills applied: Staff supervision and mentoring, Computer Associate’s Visual Objects, ISAM FoxPro, MS Access with VBA, SQL, SourceSafe
-
-Chief Analyst, Adecco Technical (SAIC, Plano, TX), Dallas, TX
-(Contract until completion) January, 2001 – July, 2001
-Given my skill in object-oriented design, I was charged with designing and developing the reporting aspect of a United States Air Force financial reporting application.  The interface I created simulated business cube dimension drag-and-drop report-building functionality. Technologies applied: ColdFusion with Fusebox methodology, WDDX, XML, JavaScript, CSS, SQL, advanced mathematical and financial algorithms 
-
-EDP Contracting, Boston, MA (1992 – 1998) 
-Completed the following contracts:
--- Technical Lead, CGH Technologies, Inc., Washington D.C.
-December, 1998 – November, 2000
-Initially as the contract Database Administrator, soon thereafter hired and rose rapidly to become the Managing Technical Lead over numerous critical government software and/or database design, development or enhancement client-server and web-based contracts. Technologies/skills applied: Project Management, Software Development Team Management, remote and local database configuration, graphic design, DHTML, CSS, GIS, Java, JSP/Servlets, ColdFusion, CGI, Fortran, SQL, Oracle, UNIX, advanced mathematics and finance algorithms
-
--- Systems Analyst, National Academy of Sciences, Washington, DC  (1996)
-Managed the delivery of an enterprise-wide object-oriented ERP Project Task and Financial Management application.  Technologies applied:  Visual Basic 5.0, MS SQL Server, SourceSafe
-
--- T. Rowe Price, Baltimore, MD (1997)
-Delivered an internal financial reporting and client statement generating system. Technologies applied: Essbase, a Business Cube technology; Commander Decision, a Business Cube programming IDE; mainframe and local database update and configuration; and UNIX
-
--- Digital Equipment Corp., Maynard, MA (1997)
-Gathered expert internal clients to test its manufacturing and inventory application that resulted in valued improvement to that software. Technologies/skill applied: QA Management, Visual Basic, Transact-SQL, UNIX 
-
--- Fidelity Management Research Corp., Boston, MA (1993 - 1996)
-·	Delivered an enterprise-wide Systems Expense Reporting Application with all coding and integral database design and development support. Technologies applied: Essbase, a Business Cube technology; MS SQL Server with Transact-SQL
-·	Given my acumen for operations analysis and transaction processing, also floated from the Financial Reporting, Correspondence, Transactions and Contract Departments to develop MS Access prototypes of auditing, productivity or tracking applications. 
-
--- KPMG Peat Marwick, Boston, MA (1992)
-Beyond daily operations requirements, designed and developed a Compensation and Benefits Data Entry System, rewrote the code of a Proposal Development System to permit the transparent incorporation of historic and current MS Word objects into a structured user interface and back-end, and a Client Financial Statement System to permit accurate and timely mailing to more than 5,000 customers – all done within MS Access.   
-
-Education
-- Graduate Computer Science, University of Massachusetts, Lowell, MA, 1995
-- Academic Merit Scholar in Graduate Mathematics, Northeastern University, Boston, MA, 1993 
-~	Course work in Bayesian Statistics, Combinatorics and Abstract Programming
-~	Teaching Assistant, Taught Freshman Level Algebra
-- B.A., Mathematics, University of Massachusetts, Boston, MA, 1991 
-~	Developmental Studies Instructor of College Math and Critical Thinking (Summers ’89 and ’90)
-~	Tutor of Finite Math, Business Math, Calculus I, Economics and Computer Science (Academic Years ’88 – 90’)
-~	GED Math Instructor,  Roxbury Community College, MA (Academic Year ’90)
-~	Math Instructor, Boston City Hospital, Clerical Union (Academic Year ’89)
-~	Medical Pricing Application Developer, Public Consulting Group Inc., Boston
-~	Student Actuary, Liberty Mutual Insurance Group, Boston, MA
-- B.A., Political Science, The Catholic University of America, Washington DC, 1982 
-- Graduate Economics and Marketing, University of Massachusetts, Amherst, 1985
-
-
 

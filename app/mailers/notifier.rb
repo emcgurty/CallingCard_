@@ -20,19 +20,42 @@ def comments_received(recipient, subject, message, body, sent_at = Time.now)
 
    end
 
-def school(recipient, subject, message, body, sent_at = Time.now)
-	do_contact(recipient, subject, message, body, sent_at = Time.now)
 
+  def signup_notification(users)
+    setup_email(users)
+    @subject    += ' Please activate your new account'
+    @body[:url]  = "http://#{SITE_URL}/activate/#{users.activation_code}"
    end
+ 
+  def activation(users)
+    setup_email(users)
+    @subject    += ' Your account has been activated!'
+    @body[:url]  = "http://#{SITE_URL}/"
+  end
+  
+  def reset_notification(users)
+    setup_email(users)
+    @subject    += ' Link to reset your password'
+    @body[:url]  = "http://#{SITE_URL}/reset/#{users.reset_code}"
+  end
+  #19
+  protected
+    def setup_email(users)
+      @recipients  = "#{users.email}"
+      @from        = "emcgurty3@comcast.net"
+      @subject     = SITE_URL
+      @sent_on     = Time.now
+      @body[:users] = users
 
-private
+    end
 
-def do_contact(recipient, subject, message, body, sent_at = Time.now)
+   private
 
+   def do_contact(recipient, subject, message, body, sent_at = Time.now)
 
       @subject = subject
       @recipients = recipient
-      @from = ''
+      @from = 'continuebanonuraniummininginva@gmail.com'
       @message = message
       @sent_on = sent_at
       @body = body

@@ -1,0 +1,88 @@
+<%= form_for(:posts, :url => {:action => 'create'}) do |new_form| %>   
+
+<table class=ListComments >
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td colspan=3  class=PetitionTitle >UUID Demonstration</td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred>Name</td>
+<td colspan=2 class=labelred></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr>
+<td width="5%"></td>
+<td width="15%" ><%=h new_form.text_field(:name) %></td>
+<td colspan=2></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%"></td>
+<td width="15%"></td>
+<td width="15%"></td>
+<td width="15%"></td>  
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="20%"></td>
+</tr>
+
+
+<tr  >
+<td width="5%" ></td>
+<td width="15%" align=left><%= submit_tag  "Submit for Approval", { :class=>"button_style"} %></td>
+<td width="15%" align=left></td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+<td width="10%" ></td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+</table>
+
+<% end %>

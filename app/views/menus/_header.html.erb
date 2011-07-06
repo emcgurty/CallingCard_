@@ -2,9 +2,13 @@
 <div class=left_side_content2 >
 	<ul valign="top" class=menu>
          <li><%= link_to "The Petition", :controller=> 'Signatures', :action => 'show_refresh' %></li>
+         <% if session[:user_fullname] %>
          <li><%= link_to "Perspectives", :controller=> 'Perspectives', :action => 'show' %></li>
 	   <li><%= link_to "Offer Link", :controller=> 'Linkrequests', :action => 'new' %></li>
-         <li><%= link_to "Site Author", :controller=> 'Author', :action => 'show' %><br /></li>
+         <% end %>
+<li><%= link_to "Site Author", :controller=> 'Author', :action => 'show' %><br /></li>
+<!-- <li><%= link_to "UUID Demo", :controller=> 'Posts', :action => 'new' %><br /></li> -->
+
          </ul>
 </div>
 
@@ -26,8 +30,13 @@
 <div class=right_side_content2 >
 	<ul valign="bottom" class=menu_right>
           <li><%= link_to "Home", :controller=> :home, :action => :index %></li>
-          <li><%= link_to "Login", :controller=> :users, :action => "show" %></li>
-          <li><%= link_to "Register", :controller=> :users, :action => :new %></</li>
+           <% if session[:user_fullname].nil? %>
+           <li><%= link_to "Login", login_path %></li>
+           <li><%= link_to "Register", :controller=> :users, :action => :new %></</li>
+	    <% else %>
+          <li><%= link_to "Logout", logout_path %></li>
+          <% end %>
+
       </ul>
 </div>
 

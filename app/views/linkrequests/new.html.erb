@@ -1,16 +1,16 @@
-<%= form_for(:linkrequest, :url => {:action => 'create'}, :html => {:multipart => true}) do |new_form| %>   
+<%= form_for(:linkrequests, :url => {:action => 'create'}, :html => {:multipart => true}) do |new_form| %>   
 
 <% if !session[:org_name].nil? %>
 <%= session[:org_name] -%>
 <% end %>
 
-<% if @linkrequest.errors.any? %>
+<% if @linkrequests.errors.any? %>
   <div id="error_explanation">
-    <h2><%=h pluralize(@linkrequest.errors.count, "error") %> 
+    <h2><%=h pluralize(@linkrequests.errors.count, "error") %> 
         prohibited this new link request from being saved:</h2>
     <p>There were problems with the following fields:</p>
     <ul>
-    <% @linkrequest.errors.full_messages.each do |msg| %>
+    <% @linkrequests.errors.full_messages.each do |msg| %>
       <li><%=h msg %></li>
     <% end %>
     </ul>
@@ -67,7 +67,7 @@
 
 <tr>
 <td width="5%"></td>
-<td width="15%" ><%=h new_form.text_field(:organization_name , :onchange=> {:action => :get_org_name}) %></td>
+<td width="15%" ><%=h new_form.text_field(:organization_name) %></td>
 <td colspan=2><%=h new_form.text_field('organization_url') %></td>
 <td width="10%"></td>
 <td width="10%"></td>
@@ -101,7 +101,7 @@
 <td width="5%"></td>
 <td width="15%" valign="top"><%=h new_form.text_field :city, :size=>20 %></td>
 <td width="15%">
-<%= select("linkrequest", "state_id", State.all.collect {|p| [ p.state, p.id ] }) %></td>
+<%= select("linkrequests", "state_id", State.all.collect {|p| [ p.state, p.id ] }) %></td>
 <td width="15%"></td>
 <td width="10%"></td>
 <td width="10%"></td>
@@ -122,7 +122,7 @@
 <tr  >
 
 <td width="5%"></td>
-<td width="15%"><%= select("linkrequest", "country_id", Country.all.collect {|p| [ p.country, p.id ] }) %></td>
+<td width="15%"><%= select("linkrequests", "country_id", Country.all.collect {|p| [ p.country, p.id ] }) %></td>
 <td width="15%" valign="top"><%=h new_form.text_field :zip_code, :size=> 12 %></td>
 <td width="10%"></td>
 <td width="10%"></td>
@@ -287,7 +287,7 @@
 <td width="15%" align=left><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, { :class=>"button_style"}%></td>
 <td width="15%"> </td>
 <td width="10%" ><%=h new_form.hidden_field('remote_ip' , :value=>request.remote_ip)  %> </td>
-<td width="10%"></td>
+<td width="10%"><%=h new_form.hidden_field('user_id' , :value=>session[:user_id])  %></td>
 <td width="10%" ></td>
 <td width="10%" ></td>
 </tr>

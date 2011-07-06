@@ -1,0 +1,22 @@
+<%= error_messages_for :users %>
+ 
+<% form_for :users do |f| -%>
+  <p>
+    Pick a new password for <span><%= @users.email %></span>
+  </p>
+
+  <p>
+    <label for="password">Password</label><br />
+    <%= f.password_field :password %>
+  </p>
+  
+  <p>
+    <label for="password">Confirm Password</label><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+
+
+  <p>
+    <%= submit_tag 'Reset' %>
+  </p>
+<% end -%>

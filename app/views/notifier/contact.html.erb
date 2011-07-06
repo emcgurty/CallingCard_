@@ -1,0 +1,132 @@
+<form>
+<table width="55%">
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td colspan=3>Thank you <%=h @organization_name %>  for your request to have your link placed on <%= SITE_URL %> .</td>
+<td width="5%">&nbsp;</td>
+
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">Full Name:&nbsp;</td>
+<td colspan=2">
+ <% strMI = @mi %>
+ <% strMI = strMI.to_s %>
+	<% if strMI.nil? %>
+	<% fullName = @first_name + " " + @last_name %>
+	<% else %>
+	<% fullName = @first_name + " " + @mi + " " + @last_name %>
+	<% end %>
+<%=h fullName %></td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">Organization URL:&nbsp;</td>
+<td colspan=2>
+
+ <% if @url.nil? %>
+    Not Provided
+ <% else %>
+    <%=h @url %>	
+  <% end %>
+</td>
+<td width="5%">&nbsp;</td>
+
+</tr>
+
+<tr>
+
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">Mission:&nbsp;</td>
+<td colspan=2 rowspan=3 valign="top">
+
+ <% if @mission.nil? %>
+    Not Provided
+ <% else %>
+    <%=h @mission %>	
+  <% end %>
+</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td colspan=3 rowspan=2>Within a few business days you will receive notice of acceptance.  Otherwise please disregard this email if you have received it in error.</td>
+<td width="5%">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+<tr>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="5%">&nbsp;</td>
+</tr>
+</table>
+
+
+</form>

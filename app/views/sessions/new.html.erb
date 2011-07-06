@@ -1,0 +1,24 @@
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+
+<% end %>
+
+<% form_tag sessions_path do -%>
+
+<p class=PetitionTitle>User Login</p>
+
+<p class=label1><label for="login">Login</label><br/>
+<%= text_field_tag 'login' %></p>
+
+<p class=label1><label for="password">Password</label><br/>
+<%= password_field_tag 'password' %></p>
+
+<p><label for="remember_me">Remember me:</label>
+<%= check_box_tag 'remember_me' %></p>
+
+<p>
+  <%= submit_tag 'Login' , { :class=>"button_style"} %>
+  <%= link_to 'Register', :signup, { :class=>"button_style"}  %>
+  <%= link_to 'Forgot Password?', :forgot, { :class=>"button_style"}  %>
+</p>
+<% end -%>
