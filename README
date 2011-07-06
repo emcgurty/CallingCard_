@@ -33,6 +33,7 @@ My application reflects a strong grasp of the following:
 ~	Implemented restful_authenication
 ~	Implemented UUID as a primary key 
 ~     Implemented primary and foreign keys
+~     Implemented an Observer
 ~	Rather than saving images to the database to store on server.  Rewrote send_data, particularly.
 
 What is either not complete or not reflected in the application:
