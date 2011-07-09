@@ -105,9 +105,10 @@
 <tr>
 <td width="5%"   >&nbsp;</td>
 <td colspan=2 >&nbsp;&nbsp;
-<%= link_to "Changed My Mind", {:controller=>'perspectives', :action=>'destroy', :id=>@perspectives.id}, { :class=>"button_style"} %>
+<%= link_to "Changed My Mind", {:controller=>'perspectives', :action=>'destroy', :uuid=>@perspectives.uuid}, { :class=>"button_style"} %>
 </td>
-<td colspan=2  ><%= link_to "email For Approval", {:controller=>'perspectives', :action=>'accept', :id=>@perspectives.id } , {:method=>'post',:class=>"button_style" } %></td>
+<td colspan=2  ><%= link_to "email For Approval", {:controller=>'perspectives', :action=>'accept', :uuid=>@perspectives.uuid } , {:class=>"button_style" } %></td>
+
 </tr>
 
 <tr>

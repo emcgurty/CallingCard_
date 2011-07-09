@@ -1,12 +1,13 @@
 class Linkrequests < ActiveRecord::Base
-
-   set_primary_key :uuid
    require 'fastimage'
    require 'open-uri' 
-   belongs_to                 :country
+   
+   set_primary_key :uuid
+   belongs_to    :country
    belongs_to    :state
-   belongs_to  :users
-   before_create :set_uuid
+   belongs_to    :users
+
+   #attr_accessible :uuid
 
  ObsceneWords = %w{} 
  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -16,14 +17,18 @@ class Linkrequests < ActiveRecord::Base
  alpha_numeric_regex_msg = "must be alphanumeric characters with typical writing punctuation."
 
  # downcase only effective in ASCII region 
- ## Validation on length not necessary as done atpresentation level
+ ## Validation on length not necessary as done at presentation level
 
 validates_format_of :image_content_type, :allow_blank=>true,
                       :with => /^image/,
                       :message => "--- you can only upload pictures"
 
-validates_numericality_of :img_height, :allow_blank=>true, :less_than => 101
-validates_numericality_of :img_width,  :allow_blank=>true,:less_than => 101
+ ## Actually should find the state with abbrev NA instead of id = 1
+ validates_numericality_of :state_id, :greater_than => 1, :message => "selection is required"
+ validates_numericality_of :country_id, :greater_than => 1, :message => "selection is required"
+
+ validates_numericality_of :img_height, :allow_blank=>true, :less_than => 101
+ validates_numericality_of :img_width,  :allow_blank=>true,:less_than => 101
 
  validates_presence_of :organization_name, :on => 'create', :message => "is a required field."
  validates_format_of :organization_name,   :on => 'create', :with => alpha_numeric_regex, :message => alpha_numeric_regex_msg
@@ -87,8 +92,5 @@ validates_numericality_of :img_width,  :allow_blank=>true,:less_than => 101
     File.basename(file_name).gsub(/[^\w._-]/, '')
   end
 
-   def set_uuid
-	    self.uuid = UUIDTools::UUID.timestamp_create().to_s
-   end
 
 end

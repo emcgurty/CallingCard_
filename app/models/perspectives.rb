@@ -1,5 +1,7 @@
 class Perspectives < ActiveRecord::Base
-  
+ set_primary_key :uuid  
+ belongs_to  :users
+ 
  ObsceneWords = %w{} 
  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
  name_alpha_regex = /\A[ a-zA-Z'-]+\z/
@@ -7,11 +9,8 @@ class Perspectives < ActiveRecord::Base
  mi_alpha_regex = /\A[a-zA-Z]+\z/
  alpha_numeric_regex = /\A[0-9 a-zA-Z:;.,!?'-]+\z/
  alpha_numeric_regex_msg = "must be alphanumeric characters with typical punctuation."
- belongs_to  :users
-
+ 
  # downcase only effective in ASCII region 
- ## Validation on length not necessary as done at presentation level, but whoops doesn't always work!
-
 # validates_exclusion_of :alias.downcase, :in => ObsceneWords, :on => 'create', :message => "No obscenity."
  validates_length_of :alias, :on => 'create', :in => 6..16, :message => "must be between 6 and 16 characters"
  validates_uniqueness_of :alias, :on => 'create', :message => "is already being used."

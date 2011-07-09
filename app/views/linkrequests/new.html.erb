@@ -1,8 +1,6 @@
 <%= form_for(:linkrequests, :url => {:action => 'create'}, :html => {:multipart => true}) do |new_form| %>   
 
-<% if !session[:org_name].nil? %>
-<%= session[:org_name] -%>
-<% end %>
+<% if @linkrequests %>
 
 <% if @linkrequests.errors.any? %>
   <div id="error_explanation">
@@ -15,6 +13,7 @@
     <% end %>
     </ul>
   </div>
+<% end %>
 <% end %>
 
 <table class=ListComments >
@@ -293,14 +292,14 @@
 </tr>
 
 <tr  >
-<td width="5%"> </td>
-<td width="15%"> </td>
-<td width="15%"> </td>
-<td width="15%"> </td>
-<td width="10%" ></td>
-<td width="10%"></td>
-<td width="10%"></td>
-<td width="10%" ></td>
+<td width="5%"> &nbsp;</td>
+<td width="15%"> &nbsp;</td>
+<td width="15%">&nbsp; </td>
+<td width="15%">&nbsp; </td>
+<td width="10%" >&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%" >&nbsp;</td>
 </tr>
 
 </table>

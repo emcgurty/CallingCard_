@@ -88,7 +88,7 @@
 <td width="20%"  valign=top class=smalldate><%=h items.created_at %></td>
 <td width="20%"  valign=top class=smalldate>
 
-<%= link_to "DELETE", :controller=> 'perspectives', :action=>'delete_confirm',  :id => items.id  %></td>
+<%= link_to "DELETE", {:controller=> 'perspectives', :action=>'delete_confirm',  :uuid => items.uuid}, {:class=>"button_style"}  %></td>
 
 </tr>
 

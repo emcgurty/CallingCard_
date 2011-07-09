@@ -1,5 +1,7 @@
 <%= form_for(:perspectives, :url => {:action => 'create'}, :html => {:multipart => true}) do |nf| %>   
 
+<% if @perspectives %>
+
 <% if @perspectives.errors.any? %>
   <div id="error_explanation" style="margin-left:15px;margin-top:10px;">
     <h2><%=h pluralize(@perspectives.errors.count, "error") %> 
@@ -11,6 +13,7 @@
     <% end %>
     </ul>
   </div>
+<% end %>
 <% end %>
 
 
@@ -121,7 +124,7 @@
 <td colspan=4><%=h nf.hidden_field :created_at, :value => Time.now %> 
 <%=h nf.hidden_field :machine_ip, :value => request.remote_ip %> 
 </td>
-<td colspan=4><%=h nf.hidden_field :user_id, :value => session[:user_id] %> 
+<td colspan=4><%=h nf.hidden_field :user_id, :value => session[:user_id] %> </td>
 </tr>
 
 </table>

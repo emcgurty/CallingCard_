@@ -1,4 +1,13 @@
 <%= form_for(:users, :url => {:action => 'create'}, :html => {:multipart => true}) do |new_form| %>   
+
+<% if session[:user_id] %>
+<%= session[:user_id] %>
+<% end %>
+
+
+
+
+
 <% if @users.errors.any? %>
   <div id="error_explanation">
     <h2><%=h pluralize(@users.errors.count, "error") %> 

@@ -1,9 +1,12 @@
 class UsersObserver < ActiveRecord::Observer
   
+  observe :users
 
- observe :users
- def after_create(users)
-    
+  def before_create(users)
+    users.user_id = UUIDTools::UUID.timestamp_create().to_s
+  end
+
+  def after_create(users)
     Notifier.deliver_signup_notification(users)
   end
 

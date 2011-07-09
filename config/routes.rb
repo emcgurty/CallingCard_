@@ -25,6 +25,10 @@ resources :users do
     get :update_user_info
   end
 
+# member do
+#    post :activate
+#  end
+
 member do
     post :show
   end
@@ -43,15 +47,18 @@ resources :signatures do
  
 end
 
-resources :linkrequest do
+resources :linkrequests do
   
-  member do
-    get  :sendmail
-  end
  
   member do
     delete  :destroy
   end
+
+member do
+    post  :new
+  end
+
+
 
 end
 
@@ -84,8 +91,11 @@ end
      # map.resources :perspectives
      # map.resources :perspectives, :member => { :delete_confirm => :get }
      # map.resources :perspectives, :member => { :create=> :post }
-      map.resources :linkrequest
-	map.resources :states
+      map.resources :linkrequests
+      map.resources :perspectives
+	map.sendmail  '/sendmail', :controller => 'linkrequests', :action => 'sendmail'
+	map.accept  '/accept', :controller => 'perspectives', :action => 'accept'
+      map.resources :states
       map.resources :countries
 	map.resources :author
       map.resource :sessions

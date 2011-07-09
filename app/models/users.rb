@@ -1,9 +1,9 @@
 require 'digest/sha1'
 class Users < ActiveRecord::Base
   ## Source: http://net.tutsplus.com/tutorials/ruby/getting-started-with-restful-authentication-in-rails/
-
+ set_primary_key :user_id
  has_many  :perspectives
- has_many  :linkrequest
+ has_many  :linkrequests
 
 
  ObsceneWords = %w{} 
@@ -12,7 +12,7 @@ class Users < ActiveRecord::Base
  alpha_numeric_regex = /\A[0-9 a-zA-Z:;.,!?'-]+\z/
  alpha_numeric_regex_msg = "must be alphanumeric characters with typical writing punctuation."
  alpha_numeric_regex = /\A[ a-zA-Z0-9!?.:;'-]+\z/
-# Virtual attribute for the unencrypted password
+  # Virtual attribute for the unencrypted password
   attr_accessor :password
 
   
@@ -51,16 +51,17 @@ class Users < ActiveRecord::Base
  before_create :make_activation_code 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :reset_code, :first_name, :last_name, :MI, :username
+ ## if you replace auto-increment id with a uuid based id, need to add the id name to this list
+ attr_accessible :login, :email, :password, :password_confirmation, :reset_code, :first_name, :last_name, :MI, :user_id
   
   
 
   # Activates the user in the database.
   def activate
-    @activated = true
-    self.activated_at = Time.now.utc
-    self.activation_code = nil
-    save(false)
+     @activated = true
+     self.activated_at = Time.now.utc
+     self.activation_code = nil
+     save(:validate => false)
   end
 
   def active?
@@ -104,31 +105,31 @@ class Users < ActiveRecord::Base
   def remember_me_until(time)
     self.remember_token_expires_at = time
     self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
-    save(false)
+    save(:validate => false)
   end
 
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    save(:validate => false)
   end
 
   # Returns true if the user has just been activated.
   def recently_activated?
-    @activated
+     return @activated
   end
   
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    save(:validate => false)
   end
   
   #reset methods
   def create_reset_code
     @reset = true
     self.attributes = {:reset_code => Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )}
-    save(false)
+    save(:validate => false)
   end
 
   def recently_reset?
@@ -137,7 +138,7 @@ class Users < ActiveRecord::Base
 
   def delete_reset_code
     self.attributes = {:reset_code => nil}
-    save(false)
+    save(:validate => false) 
   end
 
   protected
@@ -157,3 +158,4 @@ class Users < ActiveRecord::Base
     end
     
 end
+

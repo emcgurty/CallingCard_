@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         if params[:users].blank?
            render :text=>'Error in updating user information'
         else
-           @users = Users.find(session[:id])
+           @users = Users.where(:user_id => session[:id])
 	     if @users.update_attributes(params[:users])
 	      #session[:user_id] = nil
             redirect_to :controller => 'Users', :action  => "show"
@@ -30,9 +30,9 @@ class UsersController < ApplicationController
         if params[:users].blank?
            render :text=>'Error in updating user information'
         else
-           @users = Users.find(session[:user_id])
-	     # @users.create_reset_code
-if @users.update_attributes(params[:users])
+            @users = Users.where(:user_id => session[:user_id])
+	      @users.create_reset_code
+          if @users.update_attributes(params[:users])
 	      session[:user_id] = nil
             redirect_to :controller => 'Users', :action  => "show"
            else
@@ -67,8 +67,6 @@ end
     if @users.errors.empty?
             redirect_back_or_default('/')
             flash[:notice] = "Thanks for signing up! Please check your email to activate your account."
-           # redirect_to :controller => :signatures, :action => :show_refresh
-           #redirect_to :controller=>'home', :action=>'show'
     else
       render :action => 'new'
     end
@@ -89,9 +87,6 @@ end
       respond_to do |format|
         if !(@users.blank?)
           @users.create_reset_code
-          #myemail =  myemail = UserMailer.reset_notification(@users)
-          #myemail.deliver
-
           flash[:notice] = "Reset code sent to #{@users.email}"
           format.html { redirect_to login_path }
           #format.xml { render :xml => @users.email, :status => :created }

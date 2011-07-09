@@ -99,12 +99,9 @@
 <tr>
 <td width="2%"   >&nbsp;</td>
 <td colspan=2 >
-<%= link_to "Delete", {:controller=>'perspectives', :action=>'destroy', 
-:id=>@perspectives.id}, 
-{:style=>"font-family: arial;  font-size: 14px;font-weight: normal;  
-background-color:white;  text-decoration: none;  color: blue; border-color:green;" ,  :method=>'delete' } %>
+<%= link_to "Delete", {:controller=>'perspectives', :action=>'destroy', :uuid=>@perspectives.uuid},  {:class=>"button_style" } %>
 </td>
-<td colspan=2  ><%= link_to "email For Approval", {:controller=>'perspectives', :action=>'accept', :id=>@perspectives.id } , {:method=>'post',:style=>BUTTON_STYLE } %></td>
+<td colspan=2  ><%= link_to "email For Approval", {:controller=>'perspectives', :action=>'accept', :uuid=>@perspectives.uuid } , {:method=>'post',:class=>"button_style" } %></td>
 </tr>
 
 <tr>

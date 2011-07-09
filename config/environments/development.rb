@@ -1,20 +1,25 @@
 Banumva::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = false
+  config.whiny_nils = true
   DISPLAY_ROWS = 10
   DISPLAY_TEXT = 'ten'
   SITE_URL = "localhost:3000"
 
-  # Show full error reports and disable caching
+  
+  # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log 
+   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
-   #config.middleware.clear
-  config.active_record.observers
+  # config.middleware.clear
+  # config.active_record.observers
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
-config.log_level = :info
+  ## The following is super helpful in debugging
+  config.log_level = :debug
+  config.paths = 'log/debug.log'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
 		:enable_starttls_auto => true,
@@ -22,7 +27,7 @@ config.log_level = :info
 		:port => 587,
   		:domain => "gmail.com",
       	:authentication => :plain,
-		:user_name =>  "@gmail.com",		
+		:user_name =>  "",		
 		:password =>  ""
 }
 
@@ -35,20 +40,12 @@ config.log_level = :info
   # since you don't have to restart the webserver when you make code changes.
   config.cache_classes = false
 
-  # Log error messages when you accidentally call methods on nil.
-  #config.whiny_nils = true
-
-  # Print deprecation notices to the Rails logger
-  config.active_support.deprecation = :log
-
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
 #config.gem "simple_navigation",     :lib => "simple_navigation",     :source => "http://gems.github.com"
 #Rails::Initializer.run do |config|
- 
 #  config.gem "fastimage", :lib=>"fastimage"
- 
 #end
-end
 
+end

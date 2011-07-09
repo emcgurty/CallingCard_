@@ -1,7 +1,7 @@
 class PerspectivesController < ApplicationController
 before_filter :login_required
-before_filter :user_delete,  :only=>[:delete]
-##cache_sweeper :perspectives_sweeper
+## incomplete process before_filter :user_delete,  :only=>[:delete]
+## cache_sweeper :perspectives_sweeper   For production only
 
 
    def new
@@ -12,18 +12,15 @@ before_filter :user_delete,  :only=>[:delete]
    end
 
   def delete_confirm
-	@perspectives = Perspectives.find(params[:id], :readonly => true)
+	@perspectives = Perspectives.find(:first, :conditions => ['uuid = ?', params[:uuid]], :readonly => true)
   end
 
   def show
     do_show
    end
 
-   def options
-	end
-
    def confirm
-	@perspectives = Perspective.find(params[:id], :readonly => true)
+	@perspectives = Perspectives.find(:first, :conditions => ['uuid = ?', params[:uuid]], :readonly => true)
    end
   
    def destroy
@@ -31,28 +28,21 @@ before_filter :user_delete,  :only=>[:delete]
    end
 
    def accept
-       do_accept
+       sendmail params[:uuid]
    end
 
 private
-
-def do_accept
-
-        @myID = Perspectives.find(params[:id]) 
-        sendmail @myID.id
-
-end
 
 def do_create
 
        @perspectives = Perspectives.new(params[:perspectives])
        
-      if @perspectives.save
-            myID =  @perspectives.id
-            render :action => 'confirm', :id => myID
-      else
+       if @perspectives.save
+            myID =  @perspectives.uuid
+            render :action => 'confirm', :uuid => myID
+       else
            render :action => 'new'
-      end
+       end
 
 end
 
@@ -60,8 +50,8 @@ end
  def sendmail(cid)
 	
             
-            @perspectives = Perspectives.find(:first, :conditions => ['id = ?', cid])
-            if (not @perspectives.nil?)
+            @perspectives = Perspectives.find(:first, :readonly=> true, :conditions => ['uuid = ?', cid])
+            if (not @perspectives.blank?)
 			recipient = @perspectives.email
 		      subject = "Thanks for offering your perspective comments"
 		      message = ""
@@ -74,7 +64,7 @@ end
                   redirect_to :controller=>'home', :action=>'show', :id=>'emailsuccess'
 		      
 		else
-                  flash[:notice] = 'Message not successfully sent to '  + recipient + '.'
+                  flash[:notice] = 'Message not successfully sent.'
                   redirect_to :controller=>'home', :action=>'show', :id=>'emailsuccess'
 		end
 
@@ -98,10 +88,14 @@ end
 
 def do_destroy
 
-	@myID = Perspectives.find(params[:id])
-      @instAlias = Perspectives.find(params[:id]).alias
-      Perspectives.find(params[:id], :conditions=> ['alias = ?', @instAlias]).destroy
-      redirect_to :controller=>'home', :action=>'show'
+      begin
+        Perspectives.find(:first, :conditions => ['uuid = ?', params[:uuid]]).destroy
+        redirect_to :controller=>'home', :action=>'show'
+      rescue Exception => msg
+	  flash[:notice] = 'Error occurred in deleting link request.  Specifically, error: ' + msg.message 
+        redirect_to :controller=>'home', :action=>'errorpage'
+       end
+
 
       rescue ActiveRecord::RecordNotFound
          @error_msg = "Record not found in 'Changed My Mind' perspectives function"
@@ -112,18 +106,19 @@ def do_destroy
 
 end
 
-  def user_delete
+ ## def user_delete
 
-  @random_word = SecureRandom.hex(12)
-  @random_word = @random_word.to_s
-  newUser = {:machine_ip => request.remote_ip, :random_word => @random_word.ljust(12), 
-              :created_at => Time.now, :activity => 'Delete Perspective'}
+ ## @random_word = SecureRandom.hex(12)
+ ## @random_word = @random_word.to_s
+ ## newUser = {:machine_ip => request.remote_ip, :random_word => @random_word.ljust(12), 
+ ##             :created_at => Time.now, :activity => 'Delete Perspective'}
   
-  @usersession = Usersessions.new
-  @usersession = Usersessions.new(newUser)
-  @usersession.save
+ ## @usersession = Usersessions.new
+ ## @usersession = Usersessions.new(newUser)
+ ## @usersession.save
     
-  end
+ ## end
 
 
 end
+

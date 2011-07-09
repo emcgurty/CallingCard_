@@ -5,7 +5,16 @@ require 'open-uri'
 before_filter :login_required
 
 def sendmail
-    do_sendmail 
+    begin
+    do_sendmail params[:uuid]
+    rescue Exception => msg
+	flash[:notice] = 'Error occurred in sending Link Request email.  Specifically, error: ' + msg.message  
+      redirect_to :controller=>'home', :action=>'show', :id=>'errorpage'
+     else
+       flash[:notice] = 'Message successfully sent.'
+       redirect_to :controller=>'home', :action=>'show', :id=>'emailsuccess'
+    end
+
 end
 
 def displayAllListingsGrid
@@ -19,15 +28,7 @@ def destroy
   destroy_this
 end
 
-def new
-      @linkrequests = Linkrequests.new
-      myState = 'Virginia'
-      @state = State.find(:first, :conditions => ['state = ?', myState])
-      @linkrequests.state_id = @state[:id]
-      myCountry = 'United States'
-      @country = Country.find(:first, :conditions => ['country = ?', myCountry])
-      @linkrequests.country_id  = @country[:id]      
-
+def new  
 end
 
 def show
@@ -36,8 +37,7 @@ def show
     rescue Exception => msg
 	render :text => 'Error occurred in sending uuid' + '.  Specifically, error: ' + msg.message  
     end
-
-    @linkrequests = Linkrequests.find(:first, :conditions => ['uuid = ?', myid], :readonly=>true)
+     @linkrequests = params[:linkrequests]   #  not necessary: Linkrequests.find(:first, :uuid => myid, :readonly=>true)
      respond_to do |format|
        format.html # index.html.erb
      end
@@ -75,9 +75,9 @@ def destroy_this
 end
 
 def do_create
-   @linkrequests = Linkrequests.new(params[:linkrequests])
+         @linkrequests = Linkrequests.new(params[:linkrequests])
      
-         if @linkrequests.save
+         if @linkrequests.save      #Triggers observer
            render  :action => 'show', :uuid => @linkrequests.uuid 
          else
            render :action => 'new'
@@ -87,7 +87,7 @@ end
 
 def display_select_picture
    myID = params[:uuid]
-   @linkrequests = Linkrequests.find(:first, :conditions => ['uuid = ?', myID])
+   @linkrequests = Linkrequests.find(:first, :readonly => true, :conditions => ['uuid = ?', myID])
    
    if (not @linkrequests.blank?)
    	path = File.join("public/client", @linkrequests.image_file_name)
@@ -117,41 +117,22 @@ def display_select_picture
 
 end
 
-def do_sendmail
-	
-            begin
-            myID = params[:uuid]
-            @linkrequests = Linkrequests.find(:first, :conditions => ['uuid = ?', myID])
-            rescue Exception => msg
-		   	flash[:notice] = 'Could not get link request record in Sendmail'  + msg.message
-            end
+def do_sendmail(myUUID)
 
-            
-            if ( not @linkrequests.blank?)
-			
-                  begin
-                  recipient = @linkrequests.email
-		      subject = 'Thanks for offering your link'
-		      message = ''
-      		body = {:first_name => @linkrequests.first_name, 
+    @linkrequests = Linkrequests.find(:first, :readonly=> true, :conditions => ['uuid = ?', myUUID])	
+    if (@linkrequests)
+    recipient = @linkrequests.email
+    subject = 'Thanks for offering your link'
+    message = ''
+    body = {:first_name => @linkrequests.first_name, 
 				  :last_name => @linkrequests.last_name,
 				  :mi => @linkrequests.mi,
 				  :mission => @linkrequests.mission,
                           :url => @linkrequests.organization_url, 
-                          :guest_name => @linkrequests.organization_name} 
-		      myemail = Notifier.contact(recipient, subject, message, body)
- 		      myemail.deliver
-			flash[:notice] = 'Message successfully sent to '  + recipient + '.'
-                  redirect_to :controller=>'home', :action=>'show', :id=>'emailsuccess'
-                  rescue Exception => msg
-		      	flash[:notice] = 'Error occurred in sending Link Request email.  Specifically, error: ' + msg.message  
-                        redirect_to :controller=>'home', :action=>'show', :id=>'errorpage'
-                  end
-		      
-		else
-                  flash[:notice] = 'Message not successfully sent.'
-                  redirect_to :controller=>'home', :action=>'show', :id=>'errorpage'
-		end
-end
+                         :orgainzation_name => @linkrequests.organization_name} 
+     Notifier.deliver_contact(recipient, subject, message, body)
+     end 
+  end
+
 
 end

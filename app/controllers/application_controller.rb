@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
 
-  ## The following code supports restful_authentication, I didn't write it
+  ## The following code supports restful_authentication, I modified it to permit UUID based user_id
   protected
     # Returns true or false if the user is logged in.
     # Preloads @current_user with the user model if they're logged in.
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
     # Store the given user id in the session.
     def current_user=(new_user)
-      session[:user_id] = new_user ? new_user.id : nil
+      session[:user_id] = new_user ? new_user.user_id : nil
       @current_user = new_user || false
     end
 
@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
 
     # Called from #current_user.  First attempt to login by the user id stored in the session.
     def login_from_session
-      self.current_user = Users.find_by_id(session[:user_id]) if session[:user_id]
+      self.current_user = Users.find_by_user_id(session[:user_id]) if session[:user_id]
     end
 
     # Called from #current_user.  Now, attempt to login by basic authentication information.
@@ -120,3 +120,4 @@ class ApplicationController < ActionController::Base
       end
     end
 end
+

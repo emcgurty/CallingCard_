@@ -4,6 +4,11 @@ class Notifier < ActionMailer::Base
   default :content_type => "text/html"
   ## Default :from doesn't always works
 
+def testmail(recipient, subject, message, body, sent_at = Time.now)
+     do_contact(recipient, subject, message, body, sent_at = Time.now)
+
+   end
+
 def contact(recipient, subject, message, body, sent_at = Time.now)
      do_contact(recipient, subject, message, body, sent_at = Time.now)
 
