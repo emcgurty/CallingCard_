@@ -1,9 +1,13 @@
 require 'digest/sha1'
 class Users < ActiveRecord::Base
-  ## Source: http://net.tutsplus.com/tutorials/ruby/getting-started-with-restful-authentication-in-rails/
+
  set_primary_key :user_id
  has_many  :perspectives
  has_many  :linkrequests
+ attr_accessor :password
+ attr_accessible :login, :email, :password, :password_confirmation, :reset_code, :first_name, :last_name, :MI, :user_id
+ before_save :encrypt_password
+ before_create :make_activation_code 
 
 
  ObsceneWords = %w{} 
@@ -12,10 +16,6 @@ class Users < ActiveRecord::Base
  alpha_numeric_regex = /\A[0-9 a-zA-Z:;.,!?'-]+\z/
  alpha_numeric_regex_msg = "must be alphanumeric characters with typical writing punctuation."
  alpha_numeric_regex = /\A[ a-zA-Z0-9!?.:;'-]+\z/
-  # Virtual attribute for the unencrypted password
-  attr_accessor :password
-
-  
 
  validates_presence_of :password, :on => 'create', :message => "is a required field."
  validates_length_of :password, :on => 'create', :in => 6..16, :message => "must be between 6 and 16 characters"
@@ -47,16 +47,8 @@ class Users < ActiveRecord::Base
 
  validates_length_of       :email,    :within => 6..100
  validates_uniqueness_of   :login, :email, :case_sensitive => false
- before_save :encrypt_password
- before_create :make_activation_code 
-  # prevents a user from submitting a crafted form that bypasses activation
-  # anything else you want your user to change should be added here.
- ## if you replace auto-increment id with a uuid based id, need to add the id name to this list
- attr_accessible :login, :email, :password, :password_confirmation, :reset_code, :first_name, :last_name, :MI, :user_id
-  
-  
-
-  # Activates the user in the database.
+ 
+ # Activates the user in the database.
   def activate
      @activated = true
      self.activated_at = Time.now.utc
@@ -71,7 +63,8 @@ class Users < ActiveRecord::Base
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-    u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] # need to get the salt
+    u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] 
+    # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 

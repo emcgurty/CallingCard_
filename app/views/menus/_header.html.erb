@@ -20,7 +20,7 @@
 <% if session[:user_fullname] %>
 <tr>
 <td class=PetitionTitle align=center> 
-<%= link_to "User: " + session[:user_fullname],:controller=> :users, :action => :show , :function=> 'update_user_info' %>
+<%= link_to "User: " + session[:user_fullname],:controller=> :users, :action => :show %>
 </td>
 </tr>
 <% end %>
@@ -32,7 +32,7 @@
           <li><%= link_to "Home", :controller=> :home, :action => :index %></li>
            <% if session[:user_fullname].nil? %>
            <li><%= link_to "Login", login_path %></li>
-           <li><%= link_to "Register", :controller=> :users, :action => :new %></</li>
+           <li><%= link_to "Register", :controller => :users, :action=>  :new %></</li>
 	    <% else %>
           <li><%= link_to "Logout", logout_path %></li>
           <% end %>

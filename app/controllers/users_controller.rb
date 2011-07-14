@@ -1,55 +1,18 @@
 class UsersController < ApplicationController
 
    def show
-      if params[:function] == 'update_user_info'
-		redirect_to :controller=>:users, :action=> :update_user_info
-      end
-    if params[:function] == 'updateuserinformation'
-        if params[:users].blank?
-           render :text=>'Error in updating user information'
-        else
-           @users = Users.where(:user_id => session[:id])
-	     if @users.update_attributes(params[:users])
-	      #session[:user_id] = nil
-            redirect_to :controller => 'Users', :action  => "show"
-           else
-		render :text=>'Error in updating user informaton'
-          end 
-       end
-    end 
+      @users = Users.find(:first, :conditions=>['user_id = ?', session[:user_id]])
    end
-
-   def update_user_info
-     @users = Users.find(:first, :conditions => ['id = ?', session[:user_id]])
-   end
-
 
     def update
-        
-      if params[:function] == 'updateuserinformation'
-        if params[:users].blank?
-           render :text=>'Error in updating user information'
+      begin
+       @users = Users.find(:first, :conditions=>['user_id = ?', session[:user_id]])
+       @users.update_attributes(params[:users])
+	   rescue Exception => msg
+            render :show
         else
-            @users = Users.where(:user_id => session[:user_id])
-	      @users.create_reset_code
-          if @users.update_attributes(params[:users])
-	      session[:user_id] = nil
-            redirect_to :controller => 'Users', :action  => "show"
-           else
-		render :text=>'Error in updating user informaton'
-          end 
-       end
-    
- else	
-@users = Users.find(params[:users])
-      if @users.update_attributes(params[:users])
-         redirect_to :controller => 'Signatures', :action  => "show_refresh"
-      else
-         render :text => 'You made a mistake'
-      end
-end
-
-
+		render :text=>'Not Error in updating user informaton'
+      end 
    end
 
    def new
@@ -62,9 +25,14 @@ end
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    @users = Users.new(params[:users])
-    @users.save
-    if @users.errors.empty?
+    # @users = Users.new(params[:users])
+    @users = Users.new(:login =>params[:users][:login], 
+                       :first_name=>params[:users][:first_name], 
+                       :last_name=>params[:users][:last_name],
+                       :password=>params[:users][:password], 
+			     :password_confirmation=>params[:users][:password_confirmation], 
+                       :email=>params[:users][:email] )
+    if  @users.save  && @users.errors.empty?
             redirect_back_or_default('/')
             flash[:notice] = "Thanks for signing up! Please check your email to activate your account."
     else

@@ -1,12 +1,10 @@
-<%= form_for(:users, :url => {:action => 'create'}, :html => {:multipart => true}) do |new_form| %>   
+<%= form_for( :users, :url => {:controller=>'users', :action=>'create'} , :html=> {:method=>'post'} ) do |nf|  -%>   
 
 <% if session[:user_id] %>
 <%= session[:user_id] %>
 <% end %>
 
-
-
-
+<% if @users %>
 
 <% if @users.errors.any? %>
   <div id="error_explanation">
@@ -20,6 +18,8 @@
     </ul>
   </div>
 <% end %> 
+<% end %> 
+
 
 <table class=ListComments width="100%">
 <tr  >
@@ -75,7 +75,7 @@
 
 <tr  >
 <td width="5%"></td>
-<td width="15%" ><%=h new_form.text_field('login' ) %></td>
+<td width="15%" ><%=h nf.text_field('login') %></td>
 <td colspan=2>&nbsp;</td>
 <td width="10%"></td>  
 <td width="10%"></td>  
@@ -109,8 +109,8 @@
 
 <tr  >
 <td width="5%"></td>
-<td width="15%" ><%=h new_form.password_field('password' ) %></td>
-<td colspan=2><%=h new_form.password_field('password_confirmation') %></td>
+<td width="15%" ><%=h nf.password_field 'password' %></td>
+<td colspan=2>   <%=h nf.password_field 'password_confirmation' %></td>
 <td width="10%"></td>  
 <td width="10%"></td>  
 <td width="10%"></td>  
@@ -142,11 +142,11 @@
 <td colspan=4 >
 <table  class=ListComments>
 <tr>
-<td width="25%" class=labelg ><%=h new_form.text_field :first_name, :size=>15 %> </td>
+<td width="25%" class=labelg ><%=h nf.text_field 'first_name' %> </td>
 <td width="1%">&nbsp;</td>
-<td width="10%" class=labelg ><%=h new_form.text_field :MI, :size=>1 %> </td>
+<td width="10%" class=labelg ><%=h nf.text_field 'MI' %> </td>
 <td width="1%">&nbsp;</td>
-<td width="18%"class=labelg ><%=h new_form.text_field('last_name', :size=>15) %> </td>
+<td width="18%"class=labelg ><%=h nf.text_field('last_name') %> </td>
 <td width="43%">&nbsp;</td>
 
 </tr>
@@ -181,7 +181,8 @@
 
 <tr  >
 <td width="5%"> </td>
-<td colspan=2 class=labelg><%=h new_form.text_field('email',:size=>50) %>   </td>
+                           
+<td colspan=2 class=labelg><%=h nf.text_field('email') %>   </td>
 <td width="15%"> </td>
 <td width="10%" ></td>
 <td width="10%"></td>
@@ -204,7 +205,6 @@
 <tr  >
 <td width="5%" ></td>
 
-<!---<td width="15%" align=left><%= submit_tag  "Submit", { :class=>"button_style"} %></td> -->
 <td width="15%" align=left><%= submit_tag 'Sign up', { :class=>"button_style"} %></td>
 <td colspan=2 align=left><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'},               { :class=>"button_style"}%></td>
 <td width="15%">&nbsp; </td>

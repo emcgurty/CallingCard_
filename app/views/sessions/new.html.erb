@@ -1,24 +1,122 @@
 <% if flash[:notice] %>
 <%= flash[:notice] %>
-
 <% end %>
 
-<% form_tag sessions_path do -%>
+<%= form_for(:users, :url => {:controller => :sessions, :action => :create}) do |form| -%>   
 
-<p class=PetitionTitle>User Login</p>
+<table class=ListComments width="100%">
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
 
-<p class=label1><label for="login">Login</label><br/>
-<%= text_field_tag 'login' %></p>
+<tr  >
+<td width="5%"></td>
+<td colspan=3  class=PetitionTitle >User Login</td>
+<td width="15%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
 
-<p class=label1><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelred></td>
+<td width="15%">  </td>
+<td width="15%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+</tr>
+<tr  >
+<td width="5%"></td>
+<td colspan=4 class=labelg>* User name and password are both required.</td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+<td width="10%">  </td>
+</tr>
 
-<p><label for="remember_me">Remember me:</label>
-<%= check_box_tag 'remember_me' %></p>
+<tr  >
+<td width="5%"></td>
+<td width="15%" class=labelg>User name</td>
+<td colspan=2 class=labelg>User Password</td>
+<td width="10%"></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
 
-<p>
-  <%= submit_tag 'Login' , { :class=>"button_style"} %>
-  <%= link_to 'Register', :signup, { :class=>"button_style"}  %>
-  <%= link_to 'Forgot Password?', :forgot, { :class=>"button_style"}  %>
-</p>
-<% end -%>
+<tr  >
+<td width="5%"></td>
+<td width="15%" ><%=h form.text_field :login %></td>
+<td colspan=2>   <%=h form.password_field :password  %></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="15%">&nbsp;</td>  
+<td width="10%">&nbsp;</td>  
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%"></td>
+<td width="15%" ><%=h link_to "Forgot my user name", {:controller=>'Users', :action=>"forgot"}, :class=>'button_style_small' %></td>
+<td colspan=2><%=h link_to "Forgot my password", {:controller=>'Users', :action=>"forgot_password"}, :class=>'button_style_small' %></td>
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>  
+<td width="10%"></td>
+</tr>
+
+<tr  >
+<td width="5%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="15%">&nbsp;</td>
+<td width="15%">&nbsp;</td>  
+<td width="10%">&nbsp;</td>  
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+<td width="10%">&nbsp;</td>
+</tr>
+
+
+
+<td width="5%">&nbsp;</td>
+<td width="15%" align=left><%= submit_tag  "Login", :class=>"button_style" %></td>
+<td colspan=2 align=left><%= link_to  "Changed My Mind", {:controller=>'Signatures', :action=>'show_refresh'}, { :class=>"button_style"}%></td>
+<td width="10%" ></td>
+
+<td width="10%" >&nbsp;</td>
+<td width="10%" >&nbsp;</td>
+</tr>
+
+<tr  >
+<td width="5%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="15%"> </td>
+<td width="10%" ></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%" ></td>
+</tr>
+
+</table>
+
+<% end %>

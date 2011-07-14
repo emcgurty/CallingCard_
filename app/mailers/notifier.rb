@@ -47,7 +47,7 @@ def comments_received(recipient, subject, message, body, sent_at = Time.now)
   protected
     def setup_email(users)
       @recipients  = "#{users.email}"
-      @from        = ""
+      @from        = "emcgurty3@comcast.net"
       @subject     = SITE_URL
       @sent_on     = Time.now
       @body[:users] = users
@@ -60,7 +60,7 @@ def comments_received(recipient, subject, message, body, sent_at = Time.now)
 
       @subject = subject
       @recipients = recipient
-      @from = ''
+      @from = 'continuebanonuraniummininginva@gmail.com'
       @message = message
       @sent_on = sent_at
       @body = body
