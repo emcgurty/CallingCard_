@@ -122,12 +122,12 @@
 <td colspan=4 >
 <table class=ListComments>
 <tr>
-<td width="25%" class=labelred >First Name (15):</td>
-<td width="1%">&nbsp;</td>
-<td width="10%" class=labelg >MI (1):</td>
-<td width="1%">&nbsp;</td>
-<td width="18%"class=labelred >Last Name (15):</td>
-<td width="43%">&nbsp;</td>
+<td width="25%" class=labelred >First Name (15):&nbsp;&nbsp;</td>
+<td width="2%">&nbsp;</td>
+<td width="12%" class=labelg >MI (1):</td>
+<td width="2%">&nbsp;</td>
+<td width="26%" class=labelred >Last Name (15):</td>
+<td width="37%">&nbsp;</td>
 </tr>
 </table>
 </td>
@@ -142,12 +142,12 @@
 <td colspan=4 >
 <table  class=ListComments>
 <tr>
-<td width="25%" class=labelg ><%=h nf.text_field 'first_name' %> </td>
-<td width="1%">&nbsp;</td>
-<td width="10%" class=labelg ><%=h nf.text_field 'MI' %> </td>
-<td width="1%">&nbsp;</td>
-<td width="18%"class=labelg ><%=h nf.text_field('last_name') %> </td>
-<td width="43%">&nbsp;</td>
+<td width="25%" class=labelg ><%=h nf.text_field :first_name , :size=>"15" %> </td>
+<td width="2%">&nbsp;</td>
+<td width="12%" class=labelg ><%=h nf.text_field :MI , :size=>"1"  %> </td>
+<td width="2%">&nbsp;</td>
+<td width="26%"class=labelg ><%=h nf.text_field :last_name , :size=>"15" %> </td>
+<td width="37%">&nbsp;</td>
 
 </tr>
 </table>

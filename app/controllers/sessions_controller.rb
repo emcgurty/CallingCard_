@@ -7,6 +7,16 @@ class SessionsController < ApplicationController
   end
 
   def create
+    
+
+    if request.post?
+     if params[:users][:login].blank? || params[:users][:password].blank?
+	flash[:notice] = "Login and password are required fields."
+      redirect_back_or_default('/')
+      return
+     end
+    end 
+
     self.current_user = Users.authenticate(params[:users][:login], params[:users][:password])
     if logged_in?  ##!!curent_user instantiated
       if params[:remember_me] == "1"
@@ -23,10 +33,11 @@ class SessionsController < ApplicationController
 		flash[:notice] = "Logged in successfully"
 	      redirect_to :controller=> :home
     else
-      redirect_to :controller=>:home, :action=>:index
+      flash[:notice] = "Either login or password were not found on our database."
+      redirect_back_or_default('/')
     end
   end
-
+  
   def destroy
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
